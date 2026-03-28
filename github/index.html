@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>GitHub | Aditya Sudhakar</title>
+    <meta
+      name="description"
+      content="A GitHub contribution liveline for Aditya Sudhakar."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;560;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        box-sizing: border-box;
+        background: #fff;
+      }
+
+      body {
+        margin: 0;
+        color: #111;
+        background: #fff;
+        font-family: "Inter", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      a,
+      button {
+        color: inherit;
+        font: inherit;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+      }
+
+      .page {
+        max-width: 36.375rem;
+        margin: 0 auto;
+        padding: 5rem 1rem 2.5rem;
+      }
+
+      .page::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 8rem;
+        pointer-events: none;
+        z-index: 9;
+        background: linear-gradient(
+          180deg,
+          #fff 0,
+          rgba(255, 255, 255, 0.74) 19%,
+          rgba(255, 255, 255, 0.54) 34%,
+          rgba(255, 255, 255, 0.38) 47%,
+          rgba(255, 255, 255, 0.28) 56.5%,
+          rgba(255, 255, 255, 0.19) 65%,
+          rgba(255, 255, 255, 0.13) 73%,
+          rgba(255, 255, 255, 0.08) 80.2%,
+          rgba(255, 255, 255, 0.04) 86.1%,
+          rgba(255, 255, 255, 0.02) 91%,
+          rgba(255, 255, 255, 0.01) 95.2%,
+          rgba(255, 255, 255, 0) 98.2%
+        );
+      }
+
+      .article {
+        max-width: 70ch;
+      }
+
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.875rem;
+        font-weight: 460;
+        line-height: 1.25rem;
+        letter-spacing: -0.00563rem;
+      }
+
+      .back:hover {
+        color: #111;
+      }
+
+      .article > header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1.25rem 0 0.5rem;
+      }
+
+      .article > header h1 {
+        margin: 0;
+        color: #111;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.00813rem;
+      }
+
+      .article > header time {
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.875rem;
+        font-weight: 460;
+        line-height: 1.25rem;
+        letter-spacing: -0.00563rem;
+      }
+
+      .article > p,
+      .chart-block,
+      .detail-list,
+      .footnote {
+        padding-top: 1rem;
+      }
+
+      .article p,
+      .article li {
+        margin: 0;
+        font-size: 0.875rem;
+        font-weight: 460;
+        line-height: 1.25rem;
+        letter-spacing: -0.00563rem;
+      }
+
+      .article em {
+        color: #000;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 0.9375rem;
+        font-style: italic;
+        font-weight: 430;
+        letter-spacing: 0.01rem;
+      }
+
+      .inline-link {
+        color: inherit;
+        text-decoration: none;
+        transition: color 140ms ease;
+      }
+
+      .inline-link:hover {
+        color: rgba(0, 0, 0, 0.55);
+      }
+
+      .chart-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 0.75rem;
+      }
+
+      .value {
+        display: flex;
+        flex-direction: column;
+        gap: 0.18rem;
+      }
+
+      .value strong {
+        margin: 0;
+        font-size: 2.75rem;
+        line-height: 0.92;
+        letter-spacing: -0.09em;
+        font-weight: 600;
+      }
+
+      .value span {
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.875rem;
+        font-weight: 460;
+        line-height: 1.25rem;
+        letter-spacing: -0.00563rem;
+      }
+
+      .window-picker {
+        display: inline-flex;
+        gap: 2px;
+        padding: 2px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.02);
+      }
+
+      .window-button {
+        position: relative;
+        z-index: 1;
+        padding: 3px 10px;
+        border-radius: 999px;
+        color: rgba(0, 0, 0, 0.22);
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 16px;
+        cursor: pointer;
+        transition: color 0.2s, background 0.15s;
+      }
+
+      .window-button[data-active="true"] {
+        background: rgba(0, 0, 0, 0.035);
+        color: rgba(0, 0, 0, 0.55);
+      }
+
+      .chart-wrap {
+        position: relative;
+        height: 18rem;
+      }
+
+      svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: crosshair;
+      }
+
+      .caption {
+        padding-top: 0.75rem;
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.75rem;
+        line-height: 1.25rem;
+        letter-spacing: -0.005rem;
+        text-align: center;
+      }
+
+      .detail-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+
+      .detail-list p {
+        color: rgba(0, 0, 0, 0.7);
+      }
+
+      .detail-list strong {
+        color: #111;
+        font-weight: 560;
+      }
+
+      .footnote {
+        color: rgba(0, 0, 0, 0.4);
+      }
+
+      @media screen and (max-width: 768px) {
+        .page {
+          padding: 2rem 1.5rem 2.5rem;
+        }
+
+        .page::before {
+          height: 2.5rem;
+        }
+
+        .chart-top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <article class="article">
+        <a class="back" href="/">Index</a>
+
+        <header>
+          <h1>GitHub</h1>
+          <time id="updated">Updated</time>
+        </header>
+
+        <p>
+          I wanted one quiet page that shows the shape of the work rather than a
+          big grid of repositories. This chart replays my GitHub contribution
+          history slowly on load, in the spirit of <em>Liveline</em>, but with my
+          own data and a much calmer presentation.
+        </p>
+
+        <p>
+          The broad shape is the point: flat through 2023, first visible activity
+          on <span id="first-active-inline">March 13, 2024</span>, then a more
+          serious climb in the recent stretch.
+        </p>
+
+        <div class="chart-block">
+          <div class="chart-top">
+            <div class="value">
+              <strong id="headline-value">0</strong>
+              <span id="headline-label">cumulative contributions</span>
+            </div>
+
+            <div class="window-picker" aria-label="Time windows">
+              <button class="window-button" type="button" data-window="90">90d</button>
+              <button class="window-button" type="button" data-window="365">1y</button>
+              <button class="window-button" type="button" data-window="all">all</button>
+            </div>
+          </div>
+
+          <div class="chart-wrap">
+            <svg id="liveline" aria-label="GitHub contribution liveline" preserveAspectRatio="none"></svg>
+          </div>
+
+          <p class="caption" id="chart-caption">
+            Public GitHub contribution history, replayed from the start.
+          </p>
+        </div>
+
+        <div class="detail-list">
+          <p><strong id="detail-90d">0</strong> contributions in the last 90 days.</p>
+          <p><strong id="detail-365d">0</strong> contributions in the last year.</p>
+          <p><strong id="detail-peak">Peak day</strong> was a sharp spike, not the whole story.</p>
+          <p>
+            The raw profile is still on
+            <a class="inline-link" href="https://github.com/adityasudhakar" target="_blank" rel="noreferrer">GitHub</a>.
+          </p>
+        </div>
+
+        <p class="footnote">
+          This uses GitHub’s public contribution calendar data rather than a raw
+          commit log. That keeps the page static and keeps the rendering honest.
+        </p>
+      </article>
+    </main>
+
+    <script>
+      const updated = document.getElementById("updated");
+      const firstActiveInline = document.getElementById("first-active-inline");
+      const headlineValue = document.getElementById("headline-value");
+      const headlineLabel = document.getElementById("headline-label");
+      const chartCaption = document.getElementById("chart-caption");
+      const detail90d = document.getElementById("detail-90d");
+      const detail365d = document.getElementById("detail-365d");
+      const detailPeak = document.getElementById("detail-peak");
+      const buttons = Array.from(document.querySelectorAll(".window-button"));
+      const svg = document.getElementById("liveline");
+
+      let payload;
+      let activeWindow = "all";
+      let animationToken = 0;
+
+      function formatDate(value) {
+        return new Intl.DateTimeFormat("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric"
+        }).format(new Date(`${value}T00:00:00`));
+      }
+
+      function setUpdatedDate() {
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        });
+
+        updated.textContent = `Updated ${formatter.format(new Date())}`;
+      }
+
+      function getWindowedSeries() {
+        if (!payload) {
+          return [];
+        }
+
+        if (activeWindow === "all") {
+          return payload.series;
+        }
+
+        const days = Number(activeWindow);
+        const slice = payload.series.slice(-days);
+        let running = 0;
+        return slice.map((point) => {
+          running += point.count;
+          return {
+            date: point.date,
+            count: point.count,
+            cumulative: running
+          };
+        });
+      }
+
+      function buildCoords(series) {
+        const width = svg.clientWidth;
+        const height = svg.clientHeight;
+        const padding = { top: 12, right: 12, bottom: 28, left: 12 };
+        const plotWidth = width - padding.left - padding.right;
+        const plotHeight = height - padding.top - padding.bottom;
+        const minValue = Math.min(...series.map((point) => point.cumulative));
+        const maxValue = Math.max(...series.map((point) => point.cumulative));
+        const span = Math.max(maxValue - minValue, 1);
+
+        return series.map((point, index) => {
+          const x = padding.left + (index / Math.max(series.length - 1, 1)) * plotWidth;
+          const y = padding.top + plotHeight - ((point.cumulative - minValue) / span) * plotHeight;
+          return { ...point, x, y };
+        });
+      }
+
+      function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function pathFromPoints(points) {
+        return points
+          .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`)
+          .join(" ");
+      }
+
+      function areaFromPoints(points, height) {
+        const start = points[0];
+        const end = points[points.length - 1];
+        return `${pathFromPoints(points)} L ${end.x.toFixed(2)} ${(height - 28).toFixed(2)} L ${start.x.toFixed(2)} ${(height - 28).toFixed(2)} Z`;
+      }
+
+      function renderFrame(progress) {
+        const series = getWindowedSeries();
+        if (!series.length) {
+          return;
+        }
+
+        const coords = buildCoords(series);
+        const width = svg.clientWidth;
+        const height = svg.clientHeight;
+        const eased = easeOutCubic(progress);
+        const visibleFloat = eased * (coords.length - 1);
+        const visibleIndex = Math.floor(visibleFloat);
+        const partial = visibleFloat - visibleIndex;
+        const visible = coords.slice(0, visibleIndex + 1);
+
+        if (visibleIndex < coords.length - 1) {
+          const current = coords[visibleIndex];
+          const next = coords[visibleIndex + 1];
+          visible.push({
+            ...next,
+            x: current.x + (next.x - current.x) * partial,
+            y: current.y + (next.y - current.y) * partial,
+            cumulative: current.cumulative + (next.cumulative - current.cumulative) * partial
+          });
+        }
+
+        const endPoint = visible[visible.length - 1];
+        const guideLines = [12, 12 + (height - 40) / 2, height - 28]
+          .map((y) => `<line x1="12" y1="${y.toFixed(2)}" x2="${(width - 12).toFixed(2)}" y2="${y.toFixed(2)}" stroke="rgba(0,0,0,0.06)" stroke-width="1" />`)
+          .join("");
+
+        const path = pathFromPoints(visible);
+        const area = areaFromPoints(visible, height);
+        const pulse = 4 + Math.sin(performance.now() / 220) * 0.8;
+
+        svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        svg.innerHTML = `
+          <defs>
+            <linearGradient id="area-fill" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="rgba(255,0,170,0.16)" />
+              <stop offset="100%" stop-color="rgba(255,0,170,0)" />
+            </linearGradient>
+          </defs>
+          ${guideLines}
+          <path d="${area}" fill="url(#area-fill)"></path>
+          <path d="${path}" fill="none" stroke="#111" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
+          <circle cx="${endPoint.x.toFixed(2)}" cy="${endPoint.y.toFixed(2)}" r="${(pulse + 4).toFixed(2)}" fill="rgba(255,0,170,0.08)"></circle>
+          <circle cx="${endPoint.x.toFixed(2)}" cy="${endPoint.y.toFixed(2)}" r="4.5" fill="#ff00aa"></circle>
+        `;
+
+        headlineValue.textContent = Math.round(endPoint.cumulative).toString();
+      }
+
+      function runAnimation() {
+        animationToken += 1;
+        const token = animationToken;
+        const start = performance.now();
+        const duration = 3600;
+
+        renderFrame(0);
+
+        function tick(now) {
+          if (token !== animationToken) {
+            return;
+          }
+
+          const progress = Math.min((now - start) / duration, 1);
+          renderFrame(progress);
+          if (progress < 1) {
+            setTimeout(() => tick(performance.now()), 16);
+          }
+        }
+
+        setTimeout(() => tick(performance.now()), 16);
+      }
+
+      function syncText() {
+        if (activeWindow === "90") {
+          headlineLabel.textContent = "contributions in the last 90 days";
+          chartCaption.textContent = "Recent window, replayed from zero to the current 90-day total.";
+          return;
+        }
+
+        if (activeWindow === "365") {
+          headlineLabel.textContent = "contributions in the last year";
+          chartCaption.textContent = "One year window, replayed from the start of that period.";
+          return;
+        }
+
+        headlineLabel.textContent = "cumulative contributions";
+        chartCaption.textContent = "Public GitHub contribution history, replayed from the start.";
+      }
+
+      function setWindow(nextWindow) {
+        activeWindow = nextWindow;
+        hoverIndex = null;
+        buttons.forEach((button) => {
+          button.dataset.active = String(button.dataset.window === nextWindow);
+        });
+        syncText();
+        runAnimation();
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setWindow(button.dataset.window);
+        });
+      });
+
+      window.addEventListener("resize", () => {
+        renderFrame(1);
+      });
+
+      fetch("./data/contributions.json")
+        .then((response) => response.json())
+        .then((data) => {
+          payload = data;
+          firstActiveInline.textContent = formatDate(payload.summary.firstActiveDate);
+          detail90d.textContent = String(payload.summary.contributionsLast90Days);
+          detail365d.textContent = String(payload.summary.contributionsLast365Days);
+          detailPeak.textContent =
+            `Peak day was ${formatDate(payload.summary.peakDay.date)} with ${payload.summary.peakDay.count} contributions.`;
+          setUpdatedDate();
+          setWindow("all");
+        });
+    </script>
+  </body>
+</html>
