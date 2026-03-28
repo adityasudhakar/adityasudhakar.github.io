@@ -289,16 +289,8 @@
         </header>
 
         <p>
-          I wanted one quiet page that shows the shape of the work rather than a
-          big grid of repositories. This chart replays my GitHub contribution
-          history slowly on load, in the spirit of <em>Liveline</em>, but with my
-          own data and a much calmer presentation.
-        </p>
-
-        <p>
-          The broad shape is the point: flat through 2023, first visible activity
-          on <span id="first-active-inline">March 13, 2024</span>, then a more
-          serious climb in the recent stretch.
+          I love my Claudex team. Find me on
+          <a class="inline-link" href="https://github.com/adityasudhakar" target="_blank" rel="noreferrer">GitHub</a>.
         </p>
 
         <div class="chart-block">
@@ -343,7 +335,6 @@
 
     <script>
       const updated = document.getElementById("updated");
-      const firstActiveInline = document.getElementById("first-active-inline");
       const headlineValue = document.getElementById("headline-value");
       const headlineLabel = document.getElementById("headline-label");
       const chartCaption = document.getElementById("chart-caption");
@@ -381,7 +372,15 @@
         }
 
         if (activeWindow === "all") {
-          return payload.series;
+          const anchors = [];
+          for (let year = 2015; year < 2023; year += 1) {
+            anchors.push({
+              date: `${year}-01-01`,
+              count: 0,
+              cumulative: 0
+            });
+          }
+          return [...anchors, ...payload.series];
         }
 
         const days = Number(activeWindow);
@@ -406,9 +405,13 @@
         const minValue = Math.min(...series.map((point) => point.cumulative));
         const maxValue = Math.max(...series.map((point) => point.cumulative));
         const span = Math.max(maxValue - minValue, 1);
+        const minTime = new Date(`${series[0].date}T00:00:00`).getTime();
+        const maxTime = new Date(`${series[series.length - 1].date}T00:00:00`).getTime();
+        const timeSpan = Math.max(maxTime - minTime, 1);
 
         return series.map((point, index) => {
-          const x = padding.left + (index / Math.max(series.length - 1, 1)) * plotWidth;
+          const time = new Date(`${point.date}T00:00:00`).getTime();
+          const x = padding.left + ((time - minTime) / timeSpan) * plotWidth;
           const y = padding.top + plotHeight - ((point.cumulative - minValue) / span) * plotHeight;
           return { ...point, x, y };
         });
@@ -464,6 +467,36 @@
         const path = pathFromPoints(visible);
         const area = areaFromPoints(visible, height);
         const pulse = 4 + Math.sin(performance.now() / 220) * 0.8;
+        let axisLabels = "";
+        let annotation = "";
+
+        if (activeWindow === "all") {
+          const targetYears = [2015, 2018, 2021, 2024, 2026];
+          axisLabels = targetYears
+            .map((year) => {
+              const point = coords.find((entry) => entry.date.startsWith(`${year}-`));
+              if (!point) {
+                return "";
+              }
+              return `<text x="${point.x.toFixed(2)}" y="${(height - 8).toFixed(2)}" fill="rgba(0,0,0,0.34)" font-size="11" text-anchor="middle">${year}</text>`;
+            })
+            .join("");
+
+          const bayAreaPoint = coords.find((entry) => entry.date === "2015-01-01");
+          if (bayAreaPoint) {
+            annotation = `
+              <line x1="${bayAreaPoint.x.toFixed(2)}" y1="${(height - 38).toFixed(2)}" x2="${bayAreaPoint.x.toFixed(2)}" y2="${(height - 58).toFixed(2)}" stroke="rgba(255,0,170,0.35)" stroke-width="1" />
+              <text x="${bayAreaPoint.x.toFixed(2)}" y="${(height - 64).toFixed(2)}" fill="rgba(255,0,170,0.72)" font-size="11" text-anchor="start">moved to the bay area</text>
+            `;
+          }
+        } else {
+          const firstPoint = coords[0];
+          const lastPoint = coords[coords.length - 1];
+          axisLabels = `
+            <text x="${firstPoint.x.toFixed(2)}" y="${(height - 8).toFixed(2)}" fill="rgba(0,0,0,0.34)" font-size="11" text-anchor="start">${firstPoint.date.slice(0, 4)}</text>
+            <text x="${lastPoint.x.toFixed(2)}" y="${(height - 8).toFixed(2)}" fill="rgba(0,0,0,0.34)" font-size="11" text-anchor="end">${lastPoint.date.slice(0, 4)}</text>
+          `;
+        }
 
         svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
         svg.innerHTML = `
@@ -478,6 +511,8 @@
           <path d="${path}" fill="none" stroke="#111" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
           <circle cx="${endPoint.x.toFixed(2)}" cy="${endPoint.y.toFixed(2)}" r="${(pulse + 4).toFixed(2)}" fill="rgba(255,0,170,0.08)"></circle>
           <circle cx="${endPoint.x.toFixed(2)}" cy="${endPoint.y.toFixed(2)}" r="4.5" fill="#ff00aa"></circle>
+          ${annotation}
+          ${axisLabels}
         `;
 
         headlineValue.textContent = Math.round(endPoint.cumulative).toString();
@@ -525,7 +560,6 @@
 
       function setWindow(nextWindow) {
         activeWindow = nextWindow;
-        hoverIndex = null;
         buttons.forEach((button) => {
           button.dataset.active = String(button.dataset.window === nextWindow);
         });
@@ -547,7 +581,6 @@
         .then((response) => response.json())
         .then((data) => {
           payload = data;
-          firstActiveInline.textContent = formatDate(payload.summary.firstActiveDate);
           detail90d.textContent = String(payload.summary.contributionsLast90Days);
           detail365d.textContent = String(payload.summary.contributionsLast365Days);
           detailPeak.textContent =
