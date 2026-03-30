@@ -127,8 +127,7 @@
         letter-spacing: -0.00563rem;
       }
 
-      .article > p,
-      .article > .reveal-stack {
+      .article > p {
         padding-top: 1rem;
       }
 
@@ -151,45 +150,38 @@
         color: rgba(0, 0, 0, 0.55);
       }
 
-      .inline-trigger {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.2rem;
+      .inline-expand {
+        display: inline;
         color: rgba(0, 0, 0, 0.7);
         cursor: pointer;
         transition: color 140ms ease, opacity 140ms ease;
       }
 
-      .inline-trigger:hover {
+      .inline-expand:hover {
         color: #111;
       }
 
-      .inline-trigger::after {
-        content: " +";
+      .inline-expand::before {
+        content: "[";
         color: rgba(0, 0, 0, 0.28);
       }
 
-      .inline-trigger[data-open="true"] {
+      .inline-expand::after {
+        content: "]";
+        color: rgba(0, 0, 0, 0.28);
+      }
+
+      .inline-expand[data-open="true"] {
         color: #111;
       }
 
-      .inline-trigger[data-open="true"]::after {
-        content: " −";
-      }
-
-      .reveal-stack {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-
-      .reveal {
+      .inline-reveal {
         display: none;
         color: rgba(0, 0, 0, 0.82);
       }
 
-      .reveal.is-visible {
-        display: block;
+      .inline-reveal.is-visible {
+        display: inline;
         animation: revealIn 220ms cubic-bezier(0.19, 1, 0.22, 1);
       }
 
@@ -466,38 +458,23 @@
         </header>
 
         <p>
-          I build AI products, data systems, and small useful things.
+          I&apos;m from Bangalore, India, and now live in Mountain View,
+          California by way of Michigan, Charleston, Boston, and New York.
         </p>
 
         <p>
-          This site starts brief on purpose. If you want more, click on
-          <button class="inline-trigger" type="button" data-target="work">work</button>,
-          <button class="inline-trigger" type="button" data-target="projects">projects</button>,
-          <button class="inline-trigger" type="button" data-target="writing">writing</button>,
-          or
-          <button class="inline-trigger" type="button" data-target="contact">contact</button>.
+          I have a unique, yet confusing, distinction of having
+          <button class="inline-expand" type="button" data-target="diesel-detail">shipped diesel injectors</button>
+          <span class="inline-reveal" id="diesel-detail"> for customers like Mercedes and Volvo</span>
+          and an
+          <button class="inline-expand" type="button" data-target="python-detail">open source Python package</button>
+          <span class="inline-reveal" id="python-detail"> for customers like Nvidia, Apple and Tesla</span>.
         </p>
 
-        <div class="reveal-stack" aria-live="polite">
-          <p class="reveal" id="work">
-            Most of my work sits at the intersection of
-            <em>product thinking</em>, applied AI, and messy real-world data.
-          </p>
-          <p class="reveal" id="projects">
-            I like building agents, internal tools, data products, and experiments
-            that become unexpectedly useful.
-          </p>
-          <p class="reveal" id="writing">
-            I write less than I should, but I care a lot about making technical
-            ideas feel clear.
-          </p>
-          <p class="reveal" id="contact">
-            The easiest way to reach me is by
-            <a class="basic-link" href="mailto:adi@🌈.kz">email</a>, on
-            <a class="basic-link" href="https://github.com/adityasudhakar" target="_blank" rel="noreferrer">GitHub</a>, or on
-            <a class="basic-link" href="https://www.linkedin.com/in/adityasudhakar/" target="_blank" rel="noreferrer">LinkedIn</a>.
-          </p>
-        </div>
+        <p>
+          I consider myself curious at heart, enjoy conversations, and feel
+          energized when I learn something new.
+        </p>
       </article>
 
       <section class="list" aria-labelledby="links-title">
@@ -506,19 +483,19 @@
           <li>
             <a href="/github/">
               <h2>GitHub <span class="note">start here</span></h2>
-              <time>liveline</time>
+              <time>projects</time>
+            </a>
+          </li>
+          <li>
+            <a href="https://theslyllama.com" target="_blank" rel="noreferrer">
+              <h2>TheSlyLlama Podcast</h2>
+              <time>listen</time>
             </a>
           </li>
           <li>
             <a href="https://www.linkedin.com/in/adityasudhakar/" target="_blank" rel="noreferrer">
               <h2>LinkedIn</h2>
               <time>profile</time>
-            </a>
-          </li>
-          <li>
-            <a href="mailto:adi@🌈.kz">
-              <h2>Email</h2>
-              <time>direct</time>
             </a>
           </li>
         </ul>
@@ -552,7 +529,7 @@
     <script>
       const updated = document.getElementById("updated");
       const clock = document.getElementById("clock");
-      const triggers = document.querySelectorAll(".inline-trigger");
+      const triggers = document.querySelectorAll(".inline-expand");
 
       function setUpdatedDate() {
         const formatter = new Intl.DateTimeFormat("en-US", {
