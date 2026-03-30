@@ -132,9 +132,7 @@
       }
 
       .article > p,
-      .chart-block,
-      .detail-list,
-      .footnote {
+      .chart-block {
         padding-top: 1rem;
       }
 
@@ -157,13 +155,14 @@
       }
 
       .inline-link {
-        color: inherit;
+        color: #ff00aa;
         text-decoration: none;
-        transition: color 140ms ease;
+        transition: color 140ms ease, opacity 140ms ease;
       }
 
       .inline-link:hover {
-        color: rgba(0, 0, 0, 0.55);
+        color: #ff00aa;
+        opacity: 0.72;
       }
 
       .chart-top {
@@ -243,25 +242,6 @@
         text-align: center;
       }
 
-      .detail-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.45rem;
-      }
-
-      .detail-list p {
-        color: rgba(0, 0, 0, 0.7);
-      }
-
-      .detail-list strong {
-        color: #111;
-        font-weight: 560;
-      }
-
-      .footnote {
-        color: rgba(0, 0, 0, 0.4);
-      }
-
       @media screen and (max-width: 768px) {
         .page {
           padding: 2rem 1.5rem 2.5rem;
@@ -281,7 +261,7 @@
   <body>
     <main class="page">
       <article class="article">
-        <a class="back" href="/">Index</a>
+        <a class="back" href="/" aria-label="Back to home">← Back</a>
 
         <header>
           <h1>GitHub</h1>
@@ -316,20 +296,6 @@
           </p>
         </div>
 
-        <div class="detail-list">
-          <p><strong id="detail-90d">0</strong> contributions in the last 90 days.</p>
-          <p><strong id="detail-365d">0</strong> contributions in the last year.</p>
-          <p><strong id="detail-peak">Peak day</strong> was a sharp spike, not the whole story.</p>
-          <p>
-            The raw profile is still on
-            <a class="inline-link" href="https://github.com/adityasudhakar" target="_blank" rel="noreferrer">GitHub</a>.
-          </p>
-        </div>
-
-        <p class="footnote">
-          This uses GitHub’s public contribution calendar data rather than a raw
-          commit log. That keeps the page static and keeps the rendering honest.
-        </p>
       </article>
     </main>
 
@@ -338,23 +304,12 @@
       const headlineValue = document.getElementById("headline-value");
       const headlineLabel = document.getElementById("headline-label");
       const chartCaption = document.getElementById("chart-caption");
-      const detail90d = document.getElementById("detail-90d");
-      const detail365d = document.getElementById("detail-365d");
-      const detailPeak = document.getElementById("detail-peak");
       const buttons = Array.from(document.querySelectorAll(".window-button"));
       const svg = document.getElementById("liveline");
 
       let payload;
       let activeWindow = "all";
       let animationToken = 0;
-
-      function formatDate(value) {
-        return new Intl.DateTimeFormat("en-US", {
-          month: "long",
-          day: "numeric",
-          year: "numeric"
-        }).format(new Date(`${value}T00:00:00`));
-      }
 
       function setUpdatedDate() {
         const formatter = new Intl.DateTimeFormat("en-US", {
@@ -373,13 +328,21 @@
 
         if (activeWindow === "all") {
           const anchors = [];
-          for (let year = 2015; year < 2023; year += 1) {
+          const anchorStart = new Date("2015-01-01T00:00:00");
+          const firstSeriesDate = new Date(`${payload.series[0].date}T00:00:00`);
+
+          for (
+            let cursor = new Date(anchorStart);
+            cursor < firstSeriesDate;
+            cursor.setDate(cursor.getDate() + 1)
+          ) {
             anchors.push({
-              date: `${year}-01-01`,
+              date: cursor.toISOString().slice(0, 10),
               count: 0,
               cumulative: 0
             });
           }
+
           return [...anchors, ...payload.series];
         }
 
@@ -581,10 +544,6 @@
         .then((response) => response.json())
         .then((data) => {
           payload = data;
-          detail90d.textContent = String(payload.summary.contributionsLast90Days);
-          detail365d.textContent = String(payload.summary.contributionsLast365Days);
-          detailPeak.textContent =
-            `Peak day was ${formatDate(payload.summary.peakDay.date)} with ${payload.summary.peakDay.count} contributions.`;
           setUpdatedDate();
           setWindow("all");
         });
