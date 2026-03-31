@@ -1,0 +1,66 @@
+name: Update GitHub Contributions
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate contributions data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/update_github_contributions.py \
+            --username adityasudhakar \
+            --start-date 2023-01-01 \
+            --output github/data/contributions.json
+
+      - name: Summarize generated data
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          payload = json.loads(Path("github/data/contributions.json").read_text())
+          summary = payload["summary"]
+          lines = [
+              "## GitHub Contributions Refresh",
+              "",
+              f"- generatedAt: `{payload['generatedAt']}`",
+              f"- totalContributions: `{summary['totalContributions']}`",
+              f"- contributionsLast90Days: `{summary['contributionsLast90Days']}`",
+              f"- contributionsLast365Days: `{summary['contributionsLast365Days']}`",
+              f"- peakDay: `{summary['peakDay']['date']}` (`{summary['peakDay']['count']}`)",
+          ]
+          with open(Path.cwd() / os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as fh:
+              fh.write("\n".join(lines) + "\n")
+          PY
+
+      - name: Commit and push if changed
+        run: |
+          if git diff --quiet -- github/data/contributions.json; then
+            echo "No contribution data changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add github/data/contributions.json
+          git commit -m "Update GitHub contributions data"
+          git push
