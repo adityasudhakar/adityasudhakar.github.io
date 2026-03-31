@@ -152,27 +152,23 @@
 
       .inline-expand {
         display: inline;
-        color: rgba(0, 0, 0, 0.7);
+        margin: 0 0.08rem;
+        padding: 0.02rem 0.32rem 0.06rem;
+        border-radius: 0.32rem;
+        color: rgba(0, 0, 0, 0.76);
+        background: rgba(0, 0, 0, 0.07);
         cursor: pointer;
-        transition: color 140ms ease, opacity 140ms ease;
+        transition: color 140ms ease, background-color 140ms ease, opacity 140ms ease;
       }
 
       .inline-expand:hover {
         color: #111;
-      }
-
-      .inline-expand::before {
-        content: "[";
-        color: rgba(0, 0, 0, 0.28);
-      }
-
-      .inline-expand::after {
-        content: "]";
-        color: rgba(0, 0, 0, 0.28);
+        background: rgba(0, 0, 0, 0.12);
       }
 
       .inline-expand[data-open="true"] {
         color: #111;
+        background: rgba(0, 0, 0, 0.14);
       }
 
       .inline-reveal {
