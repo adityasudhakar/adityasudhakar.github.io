@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>The Sly Llama | Aditya Sudhakar</title>
+    <meta
+      name="description"
+      content="The Sly Llama is a series of customer-conversation teardown episodes by Aditya Sudhakar."
+    />
+    <meta property="og:title" content="The Sly Llama" />
+    <meta
+      property="og:description"
+      content="A minimalist archive of customer-conversation teardown episodes by Aditya Sudhakar."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Sly Llama" />
+    <meta
+      name="twitter:description"
+      content="A minimalist archive of customer-conversation teardown episodes by Aditya Sudhakar."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;560;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        box-sizing: border-box;
+        background: #fff;
+      }
+
+      body {
+        margin: 0;
+        color: #111;
+        background: #fff;
+        font-family: "Inter", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 5rem 1rem 4rem;
+      }
+
+      .page::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 8rem;
+        pointer-events: none;
+        z-index: 9;
+        background: linear-gradient(
+          180deg,
+          #fff 0,
+          rgba(255, 255, 255, 0.76) 22%,
+          rgba(255, 255, 255, 0.54) 40%,
+          rgba(255, 255, 255, 0.22) 72%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+
+      .article {
+        max-width: 70ch;
+      }
+
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.875rem;
+        font-weight: 460;
+        line-height: 1.25rem;
+        letter-spacing: -0.00563rem;
+      }
+
+      .back:hover {
+        color: #111;
+      }
+
+      .article > header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1.25rem 0 0.5rem;
+      }
+
+      .article > header h1 {
+        margin: 0;
+        color: #111;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.00813rem;
+      }
+
+      .article > header time,
+      .article > header span {
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.875rem;
+        font-weight: 460;
+        line-height: 1.25rem;
+        letter-spacing: -0.00563rem;
+      }
+
+      .article > p {
+        margin: 0;
+        padding-top: 1rem;
+        font-size: 0.875rem;
+        font-weight: 460;
+        line-height: 1.35rem;
+        letter-spacing: -0.00563rem;
+      }
+
+      .article em {
+        color: #000;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 0.9375rem;
+        font-style: italic;
+        font-weight: 430;
+        letter-spacing: 0.01rem;
+      }
+
+      .basic-link {
+        color: #ff00aa;
+        transition: opacity 140ms ease;
+      }
+
+      .basic-link:hover {
+        opacity: 0.7;
+      }
+
+      .section {
+        padding-top: 2.25rem;
+      }
+
+      .section-title {
+        margin: 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #f2f2f2;
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 0.875rem;
+        font-weight: 460;
+        letter-spacing: -0.00563rem;
+      }
+
+      .episode-list {
+        display: grid;
+        padding-top: 0.75rem;
+      }
+
+      .episode {
+        display: grid;
+        grid-template-columns: 7rem minmax(0, 1fr);
+        gap: 0.9rem;
+        align-items: start;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid #f2f2f2;
+      }
+
+      .episode:last-child {
+        border-bottom: none;
+      }
+
+      .episode img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        border-radius: 0.55rem;
+        background: #f5f5f5;
+      }
+
+      .episode-body {
+        min-width: 0;
+      }
+
+      .episode h2 {
+        margin: 0;
+        font-size: 0.875rem;
+        font-weight: 560;
+        line-height: 1.2rem;
+        letter-spacing: -0.01rem;
+      }
+
+      .episode h2 a {
+        color: #ff00aa;
+      }
+
+      .episode h2 a:hover {
+        opacity: 0.68;
+      }
+
+      .episode p {
+        margin: 0.22rem 0 0;
+        color: rgba(0, 0, 0, 0.72);
+        font-size: 0.8125rem;
+        font-weight: 460;
+        line-height: 1.2rem;
+        letter-spacing: -0.00563rem;
+      }
+
+      @media screen and (max-width: 768px) {
+        .page {
+          padding: 2rem 1.5rem 3rem;
+        }
+
+        .page::before {
+          height: 2.5rem;
+        }
+
+        .episode {
+          grid-template-columns: 5.5rem minmax(0, 1fr);
+          gap: 0.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <article class="article">
+        <a class="back" href="/" aria-label="Back to home">← Back</a>
+
+        <header>
+          <h1>The Sly Llama</h1>
+          <time id="updated">Updated</time>
+          <span>How to talk to anyone about anything</span>
+        </header>
+
+        <p>
+          Are you able to dive deep into someone&apos;s work for 30+ minutes? The Sly
+          Llama is a small series where I use a <em>“what did you do next”</em>
+          framing to do exactly that. I pick the topic at random, typically some
+          trending product on Product Hunt. Here&apos;s also a related
+          <a
+            class="basic-link"
+            href="https://hackernoon.com/hack-calmer-conversations-and-get-reliable-feedback-from-users"
+            target="_blank"
+            rel="noreferrer"
+          >HackerNoon article</a>
+          on the same idea.
+        </p>
+
+        <section class="section" aria-labelledby="episodes-title">
+          <h3 class="section-title" id="episodes-title">Episodes</h3>
+
+          <div class="episode-list">
+            <article class="episode">
+              <img
+                src="https://static.wixstatic.com/media/f5184f_3b2e808ebf9f454191541f7c3ae1457c~mv2.jpg/v1/fill/w_716,h_424,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/show%20the%20same%20product%20branding%20on%20many%20d.jpg"
+                alt="Product Copy episode"
+                loading="lazy"
+              />
+              <div class="episode-body">
+                <h2><a href="/theslyllama/product-copy/">Product Copy</a></h2>
+                <p>DittoWords, product language systems, and a conversation with Mariana at Signifyd.</p>
+              </div>
+            </article>
+
+            <article class="episode">
+              <img
+                src="https://static.wixstatic.com/media/f5184f_51ee8c7a2e2f4691ae2620d61f769fdc~mv2.jpg/v1/fill/w_716,h_424,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/sales%20growth.jpg"
+                alt="Software spend management episode"
+                loading="lazy"
+              />
+              <div class="episode-body">
+                <h2><a href="/theslyllama/software-spend-management/">Software Spend Management</a></h2>
+                <p>Budgeting subscriptions, finance workflows, and a conversation with Gabriel from Caju.</p>
+              </div>
+            </article>
+
+            <article class="episode">
+              <img
+                src="https://static.wixstatic.com/media/f5184f_c57634a824154222a9a58e2588c8a6ed~mv2.jpg/v1/fill/w_716,h_424,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/bookkeeping.jpg"
+                alt="Bookkeeping episode"
+                loading="lazy"
+              />
+              <div class="episode-body">
+                <h2><a href="/theslyllama/bookkeeping/">Bookkeeping</a></h2>
+                <p>Numeric, accounting workflows, and a conversation with Kannan, a fourth-generation accountant.</p>
+              </div>
+            </article>
+
+            <article class="episode">
+              <img
+                src="https://static.wixstatic.com/media/f5184f_51ee8c7a2e2f4691ae2620d61f769fdc~mv2.jpg/v1/fill/w_716,h_424,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/sales%20growth.jpg"
+                alt="Account Executive Training episode"
+                loading="lazy"
+              />
+              <div class="episode-body">
+                <h2><a href="/theslyllama/account-executive-training/">Account Executive Training</a></h2>
+                <p>Sales ramping, AE enablement, and a conversation with Skye about growth in practice.</p>
+              </div>
+            </article>
+
+            <article class="episode">
+              <img
+                src="https://static.wixstatic.com/media/f5184f_4496fefdaa1b40b0bb553859734a1a88~mv2.jpg/v1/fill/w_716,h_424,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/international%20payments.jpg"
+                alt="International payments risk episode"
+                loading="lazy"
+              />
+              <div class="episode-body">
+                <h2><a href="/theslyllama/international-payments-risk/">International Payments Risk</a></h2>
+                <p>Freelancer payments across borders, with stories from Nigeria and Tunisia.</p>
+              </div>
+            </article>
+          </div>
+
+        </section>
+      </article>
+    </main>
+
+    <script>
+      const updated = document.getElementById("updated");
+
+      function setUpdatedDate() {
+        const formatter = new Intl.DateTimeFormat("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        });
+
+        updated.textContent = `Updated ${formatter.format(new Date())}`;
+      }
+
+      setUpdatedDate();
+    </script>
+  </body>
+</html>
