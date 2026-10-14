@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aditya Sudhakar — things that move, think, and work</title>
+    <meta
+      name="description"
+      content="Aditya Sudhakar builds AI products, data systems, robots, and small useful things."
+    />
+    <meta property="og:title" content="Aditya Sudhakar" />
+    <meta
+      property="og:description"
+      content="AI products, data systems, robots, and small useful things."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f4f1eb" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23141412'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-size='23' font-family='Arial' fill='%23f4f1eb'%3EAS%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Inter:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-label="Aditya Sudhakar, home">AS</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="/agent/">For agents <span aria-hidden="true">↗</span></a>
+        <button class="nav-chat" type="button" data-open-chat>Ask me</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Mountain View, California · <span id="clock">local time</span></p>
+          <h1 id="hero-title">
+            I make things that
+            <em>move, think, and work.</em>
+          </h1>
+          <p class="hero-intro">
+            I’m Aditya. I build AI products, data systems, robots, and whatever
+            else helps me understand a good question.
+          </p>
+        </div>
+
+        <div class="motion-grid" aria-label="Selected projects in motion">
+          <a
+            class="motion-card motion-card--robot"
+            href="https://github.com/adityasudhakar/self-rising-robot"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/assets/media/self-rising-robot-poster.jpg"
+              aria-label="A physical two-servo robot rising from the table"
+            >
+              <source src="/assets/media/self-rising-robot.mp4" type="video/mp4" />
+            </video>
+            <span class="motion-shade" aria-hidden="true"></span>
+            <span class="motion-label"><b>01</b> Self-rising robot</span>
+            <span class="motion-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a
+            class="motion-card motion-card--lego"
+            href="https://github.com/adityasudhakar/ai-lego"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/assets/media/lego-bot-poster.jpg"
+              aria-label="An instruction book opening before a LEGO robot assembles itself"
+            >
+              <source src="/assets/media/lego-bot-book.mp4" type="video/mp4" />
+            </video>
+            <span class="motion-shade" aria-hidden="true"></span>
+            <span class="motion-label"><b>02</b> LEGO, from code</span>
+            <span class="motion-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a
+            class="motion-card motion-card--sf"
+            href="https://github.com/adityasudhakar/SF-49-Mile-Tour-App"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src="/assets/media/sf-49-mile-tour.gif"
+              alt="The San Francisco 49-Mile GPS Audio Tour app running a three-stop demo"
+            />
+            <span class="motion-shade" aria-hidden="true"></span>
+            <span class="motion-label"><b>03</b> SF, narrated</span>
+            <span class="motion-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <p class="motion-note">Recent experiments · click one to inspect the work</p>
+      </section>
+
+      <section class="about section-shell" id="work" aria-labelledby="about-title">
+        <p class="section-index">01 / About</p>
+        <div class="section-content">
+          <h2 id="about-title">An engineer with a curious range.</h2>
+          <div class="about-columns">
+            <p>
+              I’m from Bangalore and now live in Mountain View, by way of
+              Michigan, Charleston, Boston, and New York.
+            </p>
+            <p>
+              I have the unusual distinction of shipping diesel injectors for
+              Mercedes and Volvo, and an open-source Python package used by
+              teams at Nvidia, Apple, and Tesla.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="interfaces section-shell" aria-labelledby="interfaces-title">
+        <p class="section-index">02 / Interfaces</p>
+        <div class="section-content">
+          <h2 id="interfaces-title">Choose your interface.</h2>
+          <div class="interface-grid">
+            <button class="interface-card human-card" type="button" data-open-chat>
+              <span class="interface-kicker">For humans</span>
+              <strong>Ask the site</strong>
+              <span>
+                A small, browser-local guide to my projects, background, and
+                current rabbit holes.
+              </span>
+              <span class="card-action">Open chat <i aria-hidden="true">→</i></span>
+            </button>
+
+            <a class="interface-card agent-card" href="/agent/">
+              <span class="interface-kicker">For agents</span>
+              <strong>Use the CLI or API</strong>
+              <span>
+                Structured project data, an OpenAPI description, and a tiny
+                zero-dependency command line client.
+              </span>
+              <code><span>$</span> node aditya.mjs ask "robotics"</code>
+              <span class="card-action">Read the agent docs <i aria-hidden="true">→</i></span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="links-section section-shell" aria-labelledby="links-title">
+        <p class="section-index">03 / Elsewhere</p>
+        <div class="section-content">
+          <h2 id="links-title">Keep looking.</h2>
+          <ul class="link-list">
+            <li>
+              <a href="/github/">
+                <span>GitHub activity</span><small>projects & experiments</small><i>→</i>
+              </a>
+            </li>
+            <li>
+              <a href="/the-sly-llama/">
+                <span>The Sly Llama</span><small>podcast series</small><i>→</i>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/adityasudhakar/" target="_blank" rel="noreferrer">
+                <span>LinkedIn</span><small>work history</small><i>↗</i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Aditya Sudhakar · <span id="year"></span></p>
+      <a href="mailto:adi@🌈.kz">adi@🌈.kz</a>
+    </footer>
+
+    <button class="chat-launcher" type="button" data-open-chat aria-label="Ask Aditya’s website a question">
+      <span class="launcher-dot" aria-hidden="true"></span>
+      Ask Aditya
+    </button>
+
+    <div class="chat-backdrop" data-close-chat hidden></div>
+    <aside
+      class="chat-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="chat-title"
+      aria-describedby="chat-description"
+      hidden
+    >
+      <header class="chat-header">
+        <div>
+          <span class="chat-status"><i aria-hidden="true"></i> Browser-local</span>
+          <h2 id="chat-title">Ask about Aditya</h2>
+        </div>
+        <button type="button" class="chat-close" data-close-chat aria-label="Close chat">×</button>
+      </header>
+      <p class="sr-only" id="chat-description">
+        A browser-local project guide. Messages stay on this device.
+      </p>
+      <div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>
+      <div class="chat-suggestions" id="chat-suggestions" aria-label="Suggested questions"></div>
+      <form class="chat-form" id="chat-form">
+        <label class="sr-only" for="chat-input">Ask a question</label>
+        <input
+          id="chat-input"
+          name="message"
+          type="text"
+          autocomplete="off"
+          placeholder="Ask about projects, robots, data…"
+          maxlength="240"
+        />
+        <button type="submit" aria-label="Send question">↑</button>
+      </form>
+      <p class="chat-privacy">Demo guide · no AI API · nothing is sent anywhere</p>
+    </aside>
+
+    <script src="/assets/site.js" defer></script>
+  </body>
+</html>

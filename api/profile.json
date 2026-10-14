@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-10-14",
+  "name": "Aditya Sudhakar",
+  "summary": "Engineer and product builder working across AI products, data systems, robotics, and useful experiments.",
+  "location": {
+    "current": "Mountain View, California, USA",
+    "from": "Bangalore, India",
+    "places_lived": [
+      "Bangalore, India",
+      "Michigan, USA",
+      "Charleston, USA",
+      "Boston, USA",
+      "New York, USA",
+      "Mountain View, California, USA"
+    ]
+  },
+  "background": [
+    "Shipped diesel injectors for customers including Mercedes and Volvo.",
+    "Shipped an open-source Python package used by teams at Nvidia, Apple, and Tesla.",
+    "Builds across software, AI, data, hardware, and robotics."
+  ],
+  "interests": [
+    "AI products",
+    "data systems",
+    "robotics",
+    "CAD and digital fabrication",
+    "developer tools",
+    "location-aware software",
+    "open source"
+  ],
+  "links": {
+    "website": "https://adityasudhakar.com",
+    "github": "https://github.com/adityasudhakar",
+    "linkedin": "https://www.linkedin.com/in/adityasudhakar/",
+    "podcast": "https://adityasudhakar.com/the-sly-llama/",
+    "email": "mailto:adi@🌈.kz"
+  },
+  "agent_interfaces": {
+    "documentation": "https://adityasudhakar.com/agent/",
+    "projects": "https://adityasudhakar.com/api/projects.json",
+    "openapi": "https://adityasudhakar.com/api/openapi.json",
+    "llms_txt": "https://adityasudhakar.com/llms.txt",
+    "cli": "https://adityasudhakar.com/cli/aditya.mjs"
+  }
+}

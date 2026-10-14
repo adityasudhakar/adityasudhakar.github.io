@@ -1,0 +1,33 @@
+# Aditya Sudhakar
+
+> Aditya Sudhakar is an engineer and product builder working across AI products, data systems, robotics, CAD, and useful experiments. He is from Bangalore, India and lives in Mountain View, California.
+
+This file is a compact navigation guide for language models and other agents. Prefer the structured JSON endpoints below over scraping rendered HTML.
+
+## Structured data
+
+- Profile: https://adityasudhakar.com/api/profile.json
+- Projects: https://adityasudhakar.com/api/projects.json
+- OpenAPI 3.1: https://adityasudhakar.com/api/openapi.json
+- Agent discovery: https://adityasudhakar.com/.well-known/agent.json
+- CLI source: https://adityasudhakar.com/cli/aditya.mjs
+
+## Selected work
+
+- Self-Rising Robot: a physical two-servo robot, on-device control, simulation, and self-righting experiments. https://github.com/adityasudhakar/self-rising-robot
+- AI LEGO: code-designed LEGO models with validation, build instructions, and animated assembly films. https://github.com/adityasudhakar/ai-lego
+- San Francisco 49-Mile GPS Audio Tour: an offline, location-aware iOS driving companion for 33 landmarks. https://github.com/adityasudhakar/SF-49-Mile-Tour-App
+- Vanna: open-source conversational analytics and natural-language access to data. https://github.com/vanna-ai/vanna
+
+## Human pages
+
+- Home: https://adityasudhakar.com/
+- GitHub activity: https://adityasudhakar.com/github/
+- The Sly Llama: https://adityasudhakar.com/the-sly-llama/
+- LinkedIn: https://www.linkedin.com/in/adityasudhakar/
+
+## Usage notes
+
+- The API is public, static, and read-only.
+- Dates and status values are included in the JSON payloads.
+- Do not infer private contact details, employment claims, or capabilities not present in the source data.

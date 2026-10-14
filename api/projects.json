@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-10-14",
+  "projects": [
+    {
+      "slug": "self-rising-robot",
+      "name": "Self-Rising Robot",
+      "status": "experiment",
+      "year": 2026,
+      "summary": "A physical two-servo robot that learns to right itself, built around an M5Atom Matrix with policies trained in simulation.",
+      "details": [
+        "Includes physical self-standing and self-rising demos.",
+        "Explores on-device control and sim-to-real behavior.",
+        "The public repository includes multiple hardware iterations and videos."
+      ],
+      "topics": ["robotics", "hardware", "reinforcement learning", "simulation", "sim-to-real", "embedded systems"],
+      "stack": ["MuJoCo", "M5Atom Matrix", "Python", "two-servo mechanism"],
+      "links": {
+        "repository": "https://github.com/adityasudhakar/self-rising-robot",
+        "video": "https://adityasudhakar.com/assets/media/self-rising-robot.mp4"
+      }
+    },
+    {
+      "slug": "ai-lego",
+      "name": "AI LEGO",
+      "status": "experiment",
+      "year": 2026,
+      "summary": "Code-designed LEGO models with validation, build instructions, and animated assembly films.",
+      "details": [
+        "Bolt the Brick Bot uses 138 standard pieces and has a 37-page instruction booklet.",
+        "The checker verifies collisions, stud connections, build order, connectivity, and whether the model stands after each step.",
+        "The showreel begins with a 3D booklet flip-through and then assembles every piece with procedural sound."
+      ],
+      "topics": ["generative design", "lego", "CAD", "3D graphics", "validation", "digital fabrication"],
+      "stack": ["Python", "Three.js", "LDraw", "Web Audio", "ffmpeg"],
+      "links": {
+        "repository": "https://github.com/adityasudhakar/ai-lego",
+        "video": "https://adityasudhakar.com/assets/media/lego-bot-book.mp4"
+      }
+    },
+    {
+      "slug": "sf-49-mile-tour",
+      "name": "San Francisco 49-Mile GPS Audio Tour",
+      "status": "prototype",
+      "year": 2026,
+      "summary": "A native iOS driving companion that plays location-aware stories while the driver's navigation app remains in the foreground.",
+      "details": [
+        "Covers 33 San Francisco landmarks with several road-aware trigger points for each stop.",
+        "Narration is pre-rendered and bundled for offline use.",
+        "The app keeps location and listening state on-device and has no account, analytics service, or runtime network dependency."
+      ],
+      "topics": ["iOS", "location", "audio", "mobile", "maps", "offline software"],
+      "stack": ["React Native", "Expo", "Swift", "Core Location", "AVFoundation"],
+      "links": {
+        "repository": "https://github.com/adityasudhakar/SF-49-Mile-Tour-App",
+        "demo": "https://adityasudhakar.com/assets/media/sf-49-mile-tour.gif"
+      }
+    },
+    {
+      "slug": "vanna",
+      "name": "Vanna",
+      "status": "open-source",
+      "summary": "An open-source Python project for conversational analytics and natural-language access to data.",
+      "details": [
+        "The work connects language models to governed data workflows.",
+        "Aditya's background includes building and shipping data and AI products for technical teams."
+      ],
+      "topics": ["AI", "data", "analytics", "text-to-SQL", "Python", "open source"],
+      "stack": ["Python", "SQL", "LLMs"],
+      "links": {
+        "repository": "https://github.com/vanna-ai/vanna"
+      }
+    },
+    {
+      "slug": "the-sly-llama",
+      "name": "The Sly Llama",
+      "status": "series",
+      "summary": "A podcast and writing series about practical business and operating questions.",
+      "details": [
+        "Topics include bookkeeping, international payments risk, software spend, product copy, and account-executive training."
+      ],
+      "topics": ["podcast", "business", "operations", "writing"],
+      "stack": [],
+      "links": {
+        "website": "https://adityasudhakar.com/the-sly-llama/"
+      }
+    }
+  ]
+}
