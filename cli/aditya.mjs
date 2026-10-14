@@ -76,6 +76,36 @@ function compactProject(project) {
   };
 }
 
+function rankKnowledge(documents, query) {
+  const tokens = normalize(query)
+    .split(" ")
+    .filter((token) => token.length > 2);
+
+  return documents
+    .map((document) => {
+      const title = normalize(document.title || "");
+      const tags = normalize((document.tags || []).join(" "));
+      const content = normalize(document.content || "");
+      let score = 0;
+
+      for (const token of tokens) {
+        if (title.includes(token)) score += 8;
+        if (tags.includes(token)) score += 5;
+        if (content.includes(token)) score += 2;
+      }
+
+      return { document, score };
+    })
+    .filter(({ score }) => score >= 4)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5);
+}
+
+function excerpt(content, length = 320) {
+  const clean = content.replace(/\s+/g, " ").trim();
+  return clean.length > length ? `${clean.slice(0, length).trim()}…` : clean;
+}
+
 function help() {
   return `aditya — inspect Aditya Sudhakar's public work
 
@@ -110,9 +140,36 @@ async function main() {
     output({
       profile: `${base}/api/profile.json`,
       projects: `${base}/api/projects.json`,
+      knowledge: `${base}/api/knowledge.json`,
       openapi: `${base}/api/openapi.json`,
       llms_txt: `${base}/llms.txt`
     });
+    return;
+  }
+
+  if (command === "ask") {
+    const query = args.join(" ");
+    if (!query) throw new Error("The ask command needs a query.");
+    const knowledge = await get("/api/knowledge.json");
+    const matches = rankKnowledge(knowledge.documents || [], query);
+    const result = {
+      query,
+      knowledge_generated_at: knowledge.generated_at,
+      matches: matches.map(({ document, score }) => ({
+        title: document.title,
+        source: document.source,
+        url: document.url,
+        excerpt: excerpt(document.content),
+        score
+      }))
+    };
+    output(
+      jsonMode
+        ? result
+        : result.matches
+            .map((match) => `${match.title} · ${match.source} [score ${match.score}]\n${match.excerpt}\n${match.url}`)
+            .join("\n\n") || "No public source matched that query."
+    );
     return;
   }
 
@@ -140,24 +197,6 @@ async function main() {
       jsonMode
         ? project
         : `${project.name}\n${project.summary}\nTopics: ${project.topics.join(", ")}\n${project.links.repository || project.links.website}`
-    );
-    return;
-  }
-
-  if (command === "ask") {
-    const query = args.join(" ");
-    if (!query) throw new Error("The ask command needs a query.");
-    const matches = rank(projects, query).slice(0, 3);
-    const result = {
-      query,
-      matches: matches.map(({ project, score }) => ({ ...compactProject(project), score }))
-    };
-    output(
-      jsonMode
-        ? result
-        : result.matches
-            .map((project) => `${project.name} [score ${project.score}]\n${project.summary}\n${project.url}`)
-            .join("\n\n") || "No project matched that query."
     );
     return;
   }

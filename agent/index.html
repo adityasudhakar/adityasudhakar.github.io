@@ -36,8 +36,8 @@
         <p class="docs-intro">
           This is a deliberately small, public, read-only interface to Aditya’s
           profile and selected work. Use raw JSON, the OpenAPI document, or the
-          zero-dependency CLI. The source of truth is the same catalog used by
-          the human-facing chatbot.
+          zero-dependency CLI. The chatbot and CLI search the same collated
+          public-source document.
         </p>
       </section>
 
@@ -55,6 +55,9 @@
             </li>
             <li>
               <a href="/api/projects.json"><span class="method">GET</span>/api/projects.json</a>
+            </li>
+            <li>
+              <a href="/api/knowledge.json"><span class="method">GET</span>/api/knowledge.json</a>
             </li>
             <li>
               <a href="/api/openapi.json"><span class="method">GET</span>/api/openapi.json</a>
@@ -100,19 +103,19 @@ node aditya.mjs profile --json</code>
           <p class="docs-label">04 / Direct</p>
           <h2>Curl the catalog</h2>
           <p>
-            For the smallest possible integration, fetch the catalog directly.
-            Schema details live in the OpenAPI document.
+            Fetch the same collated website, GitHub, and public LinkedIn source
+            document used by the chatbot. Schema details live in OpenAPI.
           </p>
           <div class="code-block">
             <button class="copy-code" type="button" data-copy="#curl-command">Copy</button>
-            <code id="curl-command">curl -sS https://adityasudhakar.com/api/projects.json</code>
+            <code id="curl-command">curl -sS https://adityasudhakar.com/api/knowledge.json</code>
           </div>
         </article>
       </section>
 
       <p class="docs-note">
         Demo interface, version 1.0 · Read-only public data · Updated 2026-10-14 ·
-        For questions the catalog cannot answer, use the contact link in
+        For questions the public sources cannot answer, use the contact link in
         <a href="/api/profile.json">profile.json</a>.
       </p>
     </main>

@@ -39,6 +39,7 @@
   "agent_interfaces": {
     "documentation": "https://adityasudhakar.com/agent/",
     "projects": "https://adityasudhakar.com/api/projects.json",
+    "knowledge": "https://adityasudhakar.com/api/knowledge.json",
     "openapi": "https://adityasudhakar.com/api/openapi.json",
     "llms_txt": "https://adityasudhakar.com/llms.txt",
     "cli": "https://adityasudhakar.com/cli/aditya.mjs"

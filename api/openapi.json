@@ -55,6 +55,35 @@
           }
         }
       }
+    },
+    "/api/knowledge.json": {
+      "get": {
+        "operationId": "getPublicKnowledge",
+        "summary": "Get the collated public-source document used by the chatbot and CLI",
+        "responses": {
+          "200": {
+            "description": "Website text, public GitHub repository metadata and README excerpts, and publicly visible LinkedIn facts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["schema_version", "generated_at", "sources", "documents"],
+                  "properties": {
+                    "schema_version": { "type": "string" },
+                    "generated_at": { "type": "string", "format": "date-time" },
+                    "description": { "type": "string" },
+                    "sources": { "type": "object", "additionalProperties": { "type": "string" } },
+                    "documents": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/KnowledgeDocument" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -87,6 +116,19 @@
           "topics": { "type": "array", "items": { "type": "string" } },
           "stack": { "type": "array", "items": { "type": "string" } },
           "links": { "type": "object", "additionalProperties": { "type": "string", "format": "uri" } }
+        }
+      },
+      "KnowledgeDocument": {
+        "type": "object",
+        "required": ["id", "source", "title", "url", "tags", "content"],
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "type": "string", "enum": ["website", "github", "linkedin"] },
+          "title": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "content": { "type": "string" },
+          "metadata": { "type": "object", "additionalProperties": true }
         }
       }
     }
