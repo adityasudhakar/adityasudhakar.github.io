@@ -201,7 +201,7 @@
 
     if (matchesAny(query, ["agent", "api", "cli", "json", "openapi", "machine", "llms txt"])) {
       return {
-        text: "Agents can read the structured profile and project catalog without scraping this page. The agent docs include JSON endpoints, OpenAPI, llms.txt, and a no-dependency Node CLI: adityasudhakar.com/agent/",
+        text: "Agents can read Aditya’s complete profile, career, resume, and selected projects in one Markdown file at adityasudhakar.com/career.md. The agent guide also documents optional JSON and CLI interfaces: adityasudhakar.com/agent/",
         matches: []
       };
     }

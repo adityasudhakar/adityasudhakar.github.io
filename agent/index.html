@@ -34,20 +34,21 @@
           <h1>Less scraping. More signal.</h1>
         </div>
         <p class="docs-intro">
-          This is a deliberately small, public, read-only interface to Aditya’s
-          profile and selected work. Use raw JSON, the OpenAPI document, or the
-          zero-dependency CLI. The chatbot and CLI search the same collated
-          public-source document.
+          Start with the public <a href="/career.md">career.md</a> file for
+          Aditya’s complete owner-maintained candidate record. Follow its links
+          for project details on the website and GitHub. Optional JSON and CLI
+          interfaces remain available for clients that use them.
         </p>
       </section>
 
       <section class="docs-grid" aria-label="Agent interfaces">
         <article class="docs-card">
-          <p class="docs-label">01 / API</p>
-          <h2>Static JSON</h2>
+          <p class="docs-label">01 / Candidate record</p>
+          <h2>One Markdown file</h2>
           <p>
-            Stable GET endpoints. No authentication, cookies, JavaScript, or
-            runtime API key required.
+            Start with <a href="/career.md">career.md</a> for Aditya's complete
+            profile, career, resume, and selected projects. These optional
+            structured endpoints are public and require no authentication.
           </p>
           <ul class="endpoint-list">
             <li>
@@ -106,13 +107,13 @@ node aditya.mjs profile --json</code>
           <p class="docs-label">04 / Direct</p>
           <h2>Curl the catalog</h2>
           <p>
-            Fetch the collated website, GitHub, and owner-maintained career
-            document. The chatbot reads career.md directly; schema details for
-            the JSON catalog live in OpenAPI.
+            Fetch the complete owner-maintained profile and career record.
+            Follow its links to the website and GitHub for deeper project
+            details.
           </p>
           <div class="code-block">
             <button class="copy-code" type="button" data-copy="#curl-command">Copy</button>
-            <code id="curl-command">curl -sS https://adityasudhakar.com/api/knowledge.json</code>
+            <code id="curl-command">curl -sS https://adityasudhakar.com/career.md</code>
           </div>
         </article>
       </section>
@@ -120,7 +121,7 @@ node aditya.mjs profile --json</code>
       <p class="docs-note">
         Demo interface, version 1.0 · Read-only public data · Updated 2026-10-14 ·
         For questions the public sources cannot answer, use the contact link in
-        <a href="/api/profile.json">profile.json</a>.
+        <a href="/career.md">career.md</a>.
       </p>
     </main>
 

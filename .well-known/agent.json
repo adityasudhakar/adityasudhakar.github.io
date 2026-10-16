@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0",
   "name": "Aditya Sudhakar — public work",
-  "description": "Read-only public profile and selected project catalog for agents.",
+  "description": "Public profile and work for agents. Start with career.md for the complete owner-maintained candidate record.",
   "homepage": "https://adityasudhakar.com/",
   "documentation": "https://adityasudhakar.com/agent/",
   "interfaces": {
+    "career": "https://adityasudhakar.com/career.md",
     "openapi": "https://adityasudhakar.com/api/openapi.json",
     "profile": "https://adityasudhakar.com/api/profile.json",
     "projects": "https://adityasudhakar.com/api/projects.json",
-    "career": "https://adityasudhakar.com/career.md",
     "knowledge": "https://adityasudhakar.com/api/knowledge.json",
     "llms_txt": "https://adityasudhakar.com/llms.txt",
     "cli": "https://adityasudhakar.com/cli/aditya.mjs"
@@ -16,6 +16,6 @@
   "access": {
     "authentication": "none",
     "mode": "read-only",
-    "content_types": ["application/json", "text/plain"]
+    "content_types": ["text/markdown", "application/json", "text/plain"]
   }
 }
