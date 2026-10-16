@@ -33,12 +33,14 @@
     "website": "https://adityasudhakar.com",
     "github": "https://github.com/adityasudhakar",
     "linkedin": "https://www.linkedin.com/in/adityasudhakar/",
+    "career": "https://adityasudhakar.com/career.md",
     "podcast": "https://adityasudhakar.com/the-sly-llama/",
     "email": "mailto:adi@🌈.kz"
   },
   "agent_interfaces": {
     "documentation": "https://adityasudhakar.com/agent/",
     "projects": "https://adityasudhakar.com/api/projects.json",
+    "career": "https://adityasudhakar.com/career.md",
     "knowledge": "https://adityasudhakar.com/api/knowledge.json",
     "openapi": "https://adityasudhakar.com/api/openapi.json",
     "llms_txt": "https://adityasudhakar.com/llms.txt",

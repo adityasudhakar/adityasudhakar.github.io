@@ -140,6 +140,7 @@ async function main() {
     output({
       profile: `${base}/api/profile.json`,
       projects: `${base}/api/projects.json`,
+      career: `${base}/career.md`,
       knowledge: `${base}/api/knowledge.json`,
       openapi: `${base}/api/openapi.json`,
       llms_txt: `${base}/llms.txt`

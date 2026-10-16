@@ -8,6 +8,7 @@
     "openapi": "https://adityasudhakar.com/api/openapi.json",
     "profile": "https://adityasudhakar.com/api/profile.json",
     "projects": "https://adityasudhakar.com/api/projects.json",
+    "career": "https://adityasudhakar.com/career.md",
     "knowledge": "https://adityasudhakar.com/api/knowledge.json",
     "llms_txt": "https://adityasudhakar.com/llms.txt",
     "cli": "https://adityasudhakar.com/cli/aditya.mjs"

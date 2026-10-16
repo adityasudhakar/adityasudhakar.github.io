@@ -3,7 +3,7 @@ import { createServer } from "node:http";
 const PORT = Number(process.env.PORT || 8787);
 const MODEL = process.env.OPENAI_MODEL || "gpt-5.5";
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const KNOWLEDGE_URL = "https://adityasudhakar.com/api/knowledge.json";
+const CAREER_URL = "https://adityasudhakar.com/career.md";
 const allowedOrigins = new Set([
   "https://adityasudhakar.com",
   "https://www.adityasudhakar.com",
@@ -11,35 +11,17 @@ const allowedOrigins = new Set([
   "http://127.0.0.1:8000"
 ]);
 const requestsByAddress = new Map();
-let knowledgeCache = { documents: [], loadedAt: 0 };
-
-const stopWords = new Set([
-  "about", "aditya", "and", "are", "can", "did", "does", "for", "from", "has", "have",
-  "his", "how", "into", "is", "me", "of", "on", "show", "tell", "that", "the", "this",
-  "to", "was", "what", "when", "where", "which", "who", "with", "you"
-]);
-const expansions = {
-  ai: ["llm", "agent", "vanna", "transformer"],
-  background: ["career", "experience", "linkedin"],
-  bot: ["robot", "robotics"],
-  built: ["project", "repository", "experiment"],
-  career: ["background", "experience", "linkedin"],
-  data: ["sql", "analytics", "database", "vanna"],
-  lego: ["brick", "ldraw", "assembly", "booklet"],
-  robotics: ["robot", "hardware", "simulation", "servo", "mujoco"],
-  robots: ["robot", "robotics", "hardware", "simulation"],
-  work: ["project", "repository", "experience", "built"]
-};
+let careerCache = { markdown: "", loadedAt: 0 };
 
 const instructions = `You are the public website assistant for Aditya Sudhakar.
 Answer questions about Aditya's projects, work, career, writing, and public background.
-You must search the web before every answer. Prefer first-party information from:
+You receive Aditya's complete owner-maintained career and resume file with every question. Treat it as the authoritative source for employment history and other LinkedIn-derived facts.
+Use web search for current or detailed information about Aditya's projects, writing, website, and GitHub repositories. Search only first-party information from:
 - https://adityasudhakar.com
 - https://github.com/adityasudhakar
-- https://www.linkedin.com/in/adityasudhakar/
 Do not infer private facts or make up details. If the public sources do not answer the question, say that plainly.
-Treat source excerpts marked as provided by Aditya as authoritative first-party information, even when a logged-out LinkedIn page does not expose the same details.
-Do not claim a role, company, or date is unavailable when it appears in the supplied first-party excerpts.
+Do not search LinkedIn. The supplied career file exists because LinkedIn is not reliably accessible to agents.
+When the career file answers the question, use it directly. When the question concerns projects, repositories, the website, writing, or potentially changing facts, use web search.
 Keep answers conversational and concise. Use plain text without Markdown styling. Cite factual claims using the web search citations.`;
 
 function corsHeaders(origin) {
@@ -85,81 +67,17 @@ async function readJson(request) {
   return JSON.parse(body || "{}");
 }
 
-function normalize(value) {
-  return String(value || "")
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^a-z0-9\s-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function queryTerms(query) {
-  const useful = normalize(query)
-    .split(" ")
-    .filter((term) => term.length > 2 && !stopWords.has(term));
-  return [...new Set(useful.flatMap((term) => [term, ...(expansions[term] || [])]))];
-}
-
-async function knowledgeDocuments() {
-  if (knowledgeCache.documents.length && Date.now() - knowledgeCache.loadedAt < 10 * 60_000) {
-    return knowledgeCache.documents;
+async function careerMarkdown() {
+  if (careerCache.markdown && Date.now() - careerCache.loadedAt < 10 * 60_000) {
+    return careerCache.markdown;
   }
 
-  const response = await fetch(KNOWLEDGE_URL, { headers: { Accept: "application/json" } });
-  if (!response.ok) throw new Error(`Knowledge source returned ${response.status}.`);
-  const payload = await response.json();
-  knowledgeCache = {
-    documents: Array.isArray(payload.documents) ? payload.documents : [],
-    loadedAt: Date.now()
-  };
-  return knowledgeCache.documents;
-}
-
-function rankKnowledge(query, documents) {
-  const terms = queryTerms(query);
-  const isCareerQuestion = terms.some((term) => ["background", "career", "experience", "linkedin"].includes(term));
-  const ranked = documents
-    .map((document) => {
-      const title = normalize(document.title);
-      const tags = normalize((document.tags || []).join(" "));
-      const content = normalize(document.content);
-      let score = 0;
-
-      for (const term of terms) {
-        if (title.includes(term)) score += 10;
-        if (tags.includes(term)) score += 6;
-        if (content.includes(term)) score += 2;
-      }
-      if (document.source === "linkedin" && terms.some((term) => ["career", "experience", "background", "linkedin"].includes(term))) score += 14;
-      return { document, score };
-    })
-    .filter(({ score }) => score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 10)
-    .map(({ document }) => document);
-
-  const priorityDocuments = isCareerQuestion
-    ? documents.filter((document) => document.source === "linkedin")
-    : [];
-  const selected = [...priorityDocuments, ...ranked];
-
-  for (const profile of documents.filter((document) => document.source === "linkedin" || document.url === "https://adityasudhakar.com/")) {
-    if (!selected.some((document) => document.id === profile.id)) selected.push(profile);
-  }
-
-  return [...new Map(selected.map((document) => [document.id, document])).values()].slice(0, 12);
-}
-
-function sourceContext(documents) {
-  return documents
-    .map((document, index) => [
-      `SOURCE ${index + 1}: ${document.title}`,
-      `URL: ${document.url}`,
-      document.metadata?.provenance ? `PROVENANCE: ${document.metadata.provenance}` : "",
-      String(document.content || "").replace(/\s+/g, " ").slice(0, 3_500)
-    ].filter(Boolean).join("\n"))
-    .join("\n\n");
+  const response = await fetch(CAREER_URL, { headers: { Accept: "text/markdown, text/plain" } });
+  if (!response.ok) throw new Error(`Career source returned ${response.status}.`);
+  const markdown = await response.text();
+  if (!markdown.trim()) throw new Error("Career source was empty.");
+  careerCache = { markdown, loadedAt: Date.now() };
+  return markdown;
 }
 
 function responseText(response) {
@@ -180,7 +98,6 @@ function isAdityaSource(rawUrl) {
     const url = new URL(rawUrl);
     if (url.hostname === "adityasudhakar.com" || url.hostname === "www.adityasudhakar.com") return true;
     if (url.hostname === "github.com") return url.pathname.toLowerCase().startsWith("/adityasudhakar");
-    if (url.hostname.endsWith("linkedin.com")) return url.pathname.replace(/\/$/, "").toLowerCase() === "/in/adityasudhakar";
   } catch {
     return false;
   }
@@ -204,15 +121,15 @@ function responseCitations(response) {
 }
 
 async function createAnswer(message, previousResponseId) {
-  let matchedDocuments = [];
+  let career = "";
   try {
-    matchedDocuments = rankKnowledge(message, await knowledgeDocuments());
+    career = await careerMarkdown();
   } catch (error) {
     console.error(error instanceof Error ? error.message : error);
   }
 
-  const groundedInput = matchedDocuments.length
-    ? `QUESTION:\n${message}\n\nRELEVANT FIRST-PARTY SOURCE EXCERPTS:\n${sourceContext(matchedDocuments)}`
+  const groundedInput = career
+    ? `QUESTION:\n${message}\n\nAUTHORITATIVE CAREER AND RESUME CONTEXT (owner-maintained):\n${career}`
     : message;
   const requestBody = {
     model: MODEL,
@@ -227,7 +144,7 @@ async function createAnswer(message, previousResponseId) {
         search_context_size: "medium"
       }
     ],
-    tool_choice: "required",
+    tool_choice: "auto",
     include: ["web_search_call.action.sources"],
     reasoning: { effort: "low" },
     max_output_tokens: 1_400,
@@ -252,10 +169,8 @@ async function createAnswer(message, previousResponseId) {
     throw error;
   }
 
-  const citations = [
-    ...responseCitations(payload),
-    ...matchedDocuments.slice(0, 4).map((document) => ({ url: document.url, title: document.title }))
-  ];
+  const citations = responseCitations(payload);
+  if (career) citations.push({ url: CAREER_URL, title: "Career and LinkedIn background" });
 
   return {
     answer: responseText(payload) || "I couldn’t find enough public information to answer that.",

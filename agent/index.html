@@ -74,6 +74,9 @@
           </p>
           <ul class="endpoint-list">
             <li>
+              <a href="/career.md"><span class="method">GET</span>/career.md</a>
+            </li>
+            <li>
               <a href="/llms.txt"><span class="method">GET</span>/llms.txt</a>
             </li>
             <li>
@@ -103,8 +106,9 @@ node aditya.mjs profile --json</code>
           <p class="docs-label">04 / Direct</p>
           <h2>Curl the catalog</h2>
           <p>
-            Fetch the same collated website, GitHub, and public LinkedIn source
-            document used by the chatbot. Schema details live in OpenAPI.
+            Fetch the collated website, GitHub, and owner-maintained career
+            document. The chatbot reads career.md directly; schema details for
+            the JSON catalog live in OpenAPI.
           </p>
           <div class="code-block">
             <button class="copy-code" type="button" data-copy="#curl-command">Copy</button>

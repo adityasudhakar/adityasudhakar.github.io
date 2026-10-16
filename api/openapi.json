@@ -59,10 +59,10 @@
     "/api/knowledge.json": {
       "get": {
         "operationId": "getPublicKnowledge",
-        "summary": "Get the collated public-source document used by the chatbot and CLI",
+        "summary": "Get collated public website, GitHub, and career content for agents and the CLI",
         "responses": {
           "200": {
-            "description": "Website text, public GitHub repository metadata and README excerpts, and publicly visible LinkedIn facts",
+            "description": "Website text, public GitHub repository metadata and README excerpts, and the owner-maintained career record",
             "content": {
               "application/json": {
                 "schema": {
@@ -123,7 +123,7 @@
         "required": ["id", "source", "title", "url", "tags", "content"],
         "properties": {
           "id": { "type": "string" },
-          "source": { "type": "string", "enum": ["website", "github", "linkedin"] },
+          "source": { "type": "string", "enum": ["website", "github", "career"] },
           "title": { "type": "string" },
           "url": { "type": "string", "format": "uri" },
           "tags": { "type": "array", "items": { "type": "string" } },

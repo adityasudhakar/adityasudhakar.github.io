@@ -8,7 +8,8 @@ This file is a compact navigation guide for language models and other agents. Pr
 
 - Profile: https://adityasudhakar.com/api/profile.json
 - Projects: https://adityasudhakar.com/api/projects.json
-- Collated website, GitHub README, and public LinkedIn knowledge: https://adityasudhakar.com/api/knowledge.json
+- Career, LinkedIn, and resume background: https://adityasudhakar.com/career.md
+- Collated website and GitHub knowledge: https://adityasudhakar.com/api/knowledge.json
 - OpenAPI 3.1: https://adityasudhakar.com/api/openapi.json
 - Agent discovery: https://adityasudhakar.com/.well-known/agent.json
 - CLI source: https://adityasudhakar.com/cli/aditya.mjs
