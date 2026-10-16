@@ -38,6 +38,8 @@ You must search the web before every answer. Prefer first-party information from
 - https://github.com/adityasudhakar
 - https://www.linkedin.com/in/adityasudhakar/
 Do not infer private facts or make up details. If the public sources do not answer the question, say that plainly.
+Treat source excerpts marked as provided by Aditya as authoritative first-party information, even when a logged-out LinkedIn page does not expose the same details.
+Do not claim a role, company, or date is unavailable when it appears in the supplied first-party excerpts.
 Keep answers conversational and concise. Use plain text without Markdown styling. Cite factual claims using the web search citations.`;
 
 function corsHeaders(origin) {
@@ -116,6 +118,7 @@ async function knowledgeDocuments() {
 
 function rankKnowledge(query, documents) {
   const terms = queryTerms(query);
+  const isCareerQuestion = terms.some((term) => ["background", "career", "experience", "linkedin"].includes(term));
   const ranked = documents
     .map((document) => {
       const title = normalize(document.title);
@@ -133,14 +136,19 @@ function rankKnowledge(query, documents) {
     })
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 7)
+    .slice(0, 10)
     .map(({ document }) => document);
 
+  const priorityDocuments = isCareerQuestion
+    ? documents.filter((document) => document.source === "linkedin")
+    : [];
+  const selected = [...priorityDocuments, ...ranked];
+
   for (const profile of documents.filter((document) => document.source === "linkedin" || document.url === "https://adityasudhakar.com/")) {
-    if (!ranked.some((document) => document.url === profile.url)) ranked.push(profile);
+    if (!selected.some((document) => document.id === profile.id)) selected.push(profile);
   }
 
-  return ranked.slice(0, 8);
+  return [...new Map(selected.map((document) => [document.id, document])).values()].slice(0, 12);
 }
 
 function sourceContext(documents) {
@@ -148,8 +156,9 @@ function sourceContext(documents) {
     .map((document, index) => [
       `SOURCE ${index + 1}: ${document.title}`,
       `URL: ${document.url}`,
+      document.metadata?.provenance ? `PROVENANCE: ${document.metadata.provenance}` : "",
       String(document.content || "").replace(/\s+/g, " ").slice(0, 3_500)
-    ].join("\n"))
+    ].filter(Boolean).join("\n"))
     .join("\n\n");
 }
 
