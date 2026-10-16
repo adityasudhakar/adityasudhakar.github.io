@@ -1,11 +1,13 @@
 (() => {
   "use strict";
 
+  const CHAT_ENDPOINT = "https://chat-api-production-9a27.up.railway.app/chat";
   const panel = document.querySelector(".chat-panel");
   const backdrop = document.querySelector(".chat-backdrop");
   const log = document.getElementById("chat-log");
   const form = document.getElementById("chat-form");
   const input = document.getElementById("chat-input");
+  const submit = form?.querySelector('button[type="submit"]');
   const suggestions = document.getElementById("chat-suggestions");
   const openers = document.querySelectorAll("[data-open-chat]");
   const closers = document.querySelectorAll("[data-close-chat]");
@@ -16,188 +18,94 @@
     if (tour) tour.src = "/assets/media/sf-49-mile-tour-poster.jpg";
   }
 
-  if (!panel || !backdrop || !log || !form || !input || !suggestions) return;
+  if (!panel || !backdrop || !log || !form || !input || !submit || !suggestions) return;
 
   const starterQuestions = [
     "What has Aditya built?",
-    "Show me robotics",
-    "What does LinkedIn say?",
-    "What is Vanna?"
+    "Tell me about his robotics work",
+    "What is Vanna?",
+    "What is his background?"
   ];
-  const stopWords = new Set([
-    "about", "aditya", "and", "are", "can", "did", "does", "for", "from",
-    "has", "have", "his", "how", "into", "is", "me", "of", "on", "show",
-    "tell", "that", "the", "this", "to", "was", "what", "when", "where",
-    "which", "who", "with", "you"
-  ]);
-  const expansions = {
-    bot: ["robot", "robotics"],
-    robots: ["robot", "robotics", "hardware", "simulation"],
-    robotics: ["robot", "hardware", "simulation", "servo", "mujoco"],
-    data: ["sql", "analytics", "database", "vanna"],
-    ai: ["llm", "transformer", "vanna", "agent"],
-    lego: ["brick", "ldraw", "assembly", "booklet"],
-    career: ["experience", "linkedin", "background"],
-    work: ["project", "repository", "experience", "built"],
-    built: ["project", "repository", "experiment"],
-    contact: ["email", "linkedin"],
-    tour: ["san francisco", "location", "audio", "ios"]
-  };
 
-  let documents = [];
-  let knowledgePromise;
+  let previousResponseId = null;
   let initialized = false;
   let lastFocused = null;
+  let busy = false;
 
-  function loadKnowledge() {
-    if (!knowledgePromise) {
-      knowledgePromise = fetch("/api/knowledge.json")
-        .then((response) => {
-          if (!response.ok) throw new Error(`Knowledge file returned ${response.status}`);
-          return response.json();
-        })
-        .then((payload) => {
-          documents = Array.isArray(payload.documents) ? payload.documents : [];
-          return payload;
-        });
+  function renderSources(container, citations) {
+    if (!Array.isArray(citations) || !citations.length) return;
+
+    const sources = document.createElement("div");
+    sources.className = "chat-sources";
+
+    for (const citation of citations.slice(0, 6)) {
+      if (!citation?.url) continue;
+      const link = document.createElement("a");
+      link.className = "chat-source";
+      link.href = citation.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      link.textContent = `${citation.title || new URL(citation.url).hostname} ↗`;
+      sources.append(link);
     }
 
-    return knowledgePromise;
+    if (sources.childElementCount) container.append(sources);
   }
 
-  function normalize(value) {
-    return value
-      .toLowerCase()
-      .normalize("NFKD")
-      .replace(/[^a-z0-9\s-]/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function queryTerms(query) {
-    const original = normalize(query).split(" ").filter(Boolean);
-    const useful = original.filter((term) => term.length > 2 && !stopWords.has(term));
-    const expanded = useful.flatMap((term) => [term, ...(expansions[term] || [])]);
-    return [...new Set(expanded.map(normalize).filter(Boolean))];
-  }
-
-  function occurrences(haystack, needle) {
-    if (!needle) return 0;
-    let count = 0;
-    let position = 0;
-    while ((position = haystack.indexOf(needle, position)) !== -1 && count < 4) {
-      count += 1;
-      position += needle.length;
-    }
-    return count;
-  }
-
-  function rankDocuments(query) {
-    const phrase = normalize(query);
-    const terms = queryTerms(query);
-
-    if (!terms.length) return [];
-
-    return documents
-      .map((document) => {
-        const title = normalize(document.title || "");
-        const tags = normalize((document.tags || []).join(" "));
-        const content = normalize(document.content || "");
-        let score = phrase.length > 4 && title.includes(phrase) ? 18 : 0;
-
-        for (const term of terms) {
-          if (title.includes(term)) score += 8;
-          if (tags.includes(term)) score += 5;
-          score += occurrences(content, term) * 1.5;
-        }
-
-        if (document.source === "linkedin" && terms.includes("linkedin")) score += 12;
-        if (document.source === "github" && terms.includes("repository")) score += 3;
-        return { document, score };
-      })
-      .filter(({ score }) => score >= 4)
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 4);
-  }
-
-  function excerpt(document, query) {
-    const content = (document.content || "").replace(/\s+/g, " ").trim();
-    const terms = queryTerms(query);
-    const lower = content.toLowerCase();
-    const positions = terms
-      .map((term) => lower.indexOf(term))
-      .filter((position) => position >= 0);
-    const firstMatch = positions.length ? Math.min(...positions) : 0;
-    const start = Math.max(0, firstMatch - 70);
-    const end = Math.min(content.length, start + 290);
-    let snippet = content.slice(start, end).trim();
-
-    if (start > 0) snippet = `…${snippet}`;
-    if (end < content.length) snippet = `${snippet}…`;
-    return snippet;
-  }
-
-  function sourceLabel(source) {
-    return { github: "GitHub", linkedin: "LinkedIn", website: "Website" }[source] || source;
-  }
-
-  function addMessage(role, text, matches = [], query = "") {
+  function addMessage(role, text, citations = []) {
     const message = document.createElement("div");
     message.className = `chat-message chat-message--${role}`;
     message.textContent = text;
 
-    if (role === "assistant") {
-      for (const { document: sourceDocument } of matches) {
-        const result = document.createElement("a");
-        const title = document.createElement("strong");
-        const snippet = document.createElement("span");
-        const source = document.createElement("small");
-
-        result.className = "chat-result";
-        result.href = sourceDocument.url;
-        result.target = "_blank";
-        result.rel = "noreferrer";
-        title.textContent = `${sourceDocument.title} ↗`;
-        snippet.textContent = excerpt(sourceDocument, query);
-        source.textContent = sourceLabel(sourceDocument.source);
-        result.append(title, snippet, source);
-        message.append(result);
-      }
-    }
-
+    if (role === "assistant") renderSources(message, citations);
     log.append(message);
     log.scrollTop = log.scrollHeight;
+    return message;
+  }
+
+  function setBusy(value) {
+    busy = value;
+    input.disabled = value;
+    submit.disabled = value;
   }
 
   async function answer(question) {
-    try {
-      const payload = await loadKnowledge();
-      const matches = rankDocuments(question);
-      if (!matches.length) {
-        addMessage(
-          "assistant",
-          "I couldn’t find a strong match in the public-source document. Try a project name, technology, company, article, or topic such as robotics, Vanna, LEGO, SQL, or audio tours."
-        );
-        return;
-      }
+    setBusy(true);
+    const pending = addMessage("assistant", "Searching Aditya’s public work…");
+    pending.classList.add("chat-message--pending");
 
+    try {
+      const response = await fetch(CHAT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: question,
+          previous_response_id: previousResponseId
+        })
+      });
+      const payload = await response.json().catch(() => ({}));
+
+      if (!response.ok) throw new Error(payload.error || "The assistant is unavailable.");
+      previousResponseId = payload.response_id || previousResponseId;
+      pending.remove();
+      addMessage("assistant", payload.answer, payload.citations);
+    } catch (error) {
+      pending.remove();
       addMessage(
         "assistant",
-        `I found ${matches.length} relevant source${matches.length === 1 ? "" : "s"} in the collated document (${payload.documents.length} total):`,
-        matches,
-        question
+        error instanceof Error && error.message
+          ? error.message
+          : "I couldn’t reach the assistant. Please try again."
       );
-    } catch {
-      addMessage(
-        "assistant",
-        "The public-source document isn’t available right now. You can inspect the GitHub and LinkedIn links directly, or use the agent API page."
-      );
+    } finally {
+      setBusy(false);
+      input.focus();
     }
   }
 
   function submitQuestion(question) {
     const clean = question.trim();
-    if (!clean) return;
+    if (!clean || busy) return;
     addMessage("user", clean);
     input.value = "";
     answer(clean);
@@ -223,10 +131,9 @@
     if (!initialized) {
       addMessage(
         "assistant",
-        "I search one collated snapshot of this website, Aditya’s public GitHub repositories and README files, and facts visible on his public LinkedIn profile. Answers are source excerpts, not model-generated claims."
+        "Ask me about Aditya’s projects, work, or background. I’ll search his website, GitHub, and public LinkedIn information before answering."
       );
       renderSuggestions();
-      loadKnowledge().catch(() => {});
       initialized = true;
     }
 
