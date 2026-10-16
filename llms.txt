@@ -4,15 +4,9 @@
 
 This file is a compact navigation guide for language models and other agents. Start with the complete owner-maintained profile, career, resume, and selected-project record in career.md. Follow its website and GitHub links for deeper project details.
 
-## Structured data
+## Main source
 
 - Complete profile, career, resume, and selected projects: https://adityasudhakar.com/career.md
-- Optional structured profile: https://adityasudhakar.com/api/profile.json
-- Optional structured project catalog: https://adityasudhakar.com/api/projects.json
-- Generated website and GitHub snapshot: https://adityasudhakar.com/api/knowledge.json
-- OpenAPI 3.1: https://adityasudhakar.com/api/openapi.json
-- Agent discovery: https://adityasudhakar.com/.well-known/agent.json
-- CLI source: https://adityasudhakar.com/cli/aditya.mjs
 
 ## Selected work
 
@@ -30,6 +24,6 @@ This file is a compact navigation guide for language models and other agents. St
 
 ## Usage notes
 
-- All resources are public and read-only. career.md is the owner-maintained canonical source; JSON files are convenience interfaces, and knowledge.json is a generated snapshot.
-- Dates and status values are included in the structured JSON payloads.
+- career.md is public, read-only, and owner-maintained. It is the canonical source for career and selected-project summaries.
+- Use the linked website pages and GitHub repositories for current implementation details.
 - Do not infer private contact details, employment claims, or capabilities not present in the source data.
