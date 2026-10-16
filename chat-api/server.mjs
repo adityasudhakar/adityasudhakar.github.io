@@ -175,7 +175,9 @@ async function createAnswer(message, previousResponseId) {
   }
 
   const citations = responseCitations(payload);
-  if (career) citations.push({ url: CAREER_URL, title: "Career and LinkedIn background" });
+  if (career && citations.length === 0) {
+    citations.push({ url: CAREER_URL, title: "Career and LinkedIn background" });
+  }
 
   return {
     answer: responseText(payload) || "I couldn’t find enough public information to answer that.",
