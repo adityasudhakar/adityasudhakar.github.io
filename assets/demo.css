@@ -42,34 +42,52 @@
   object-position: center 12%;
 }
 
-.motion-item::after {
-  content: "";
+.motion-copy {
   position: absolute;
-  inset: auto 0 0;
-  height: 36%;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.56));
-  pointer-events: none;
-}
-
-.motion-item > span {
-  position: absolute;
-  right: 0.65rem;
-  bottom: 0.55rem;
-  left: 0.65rem;
-  z-index: 1;
-  overflow: hidden;
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 0.65rem;
+  inset: 0;
+  display: grid;
+  padding: 1.1rem;
+  place-items: center;
+  color: #161616;
+  background: #f4f3ef;
+  font-size: 0.8125rem;
   font-weight: 500;
-  line-height: 1rem;
-  letter-spacing: -0.01rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.45;
+  letter-spacing: -0.008rem;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.2rem);
+  transition: opacity 180ms ease, transform 220ms ease;
 }
 
-.motion-item:hover video,
-.motion-item:hover img {
+.motion-item:focus-visible video,
+.motion-item:focus-visible img {
+  opacity: 0;
   transform: scale(1.018);
+}
+
+.motion-item:focus-visible .motion-copy {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.motion-item:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .motion-item:hover video,
+  .motion-item:hover img {
+    opacity: 0;
+    transform: scale(1.018);
+  }
+
+  .motion-item:hover .motion-copy {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .visually-hidden {
@@ -372,11 +390,9 @@ body.chat-open {
     height: 16.5rem;
   }
 
-  .motion-item > span {
-    right: 0.48rem;
-    bottom: 0.4rem;
-    left: 0.48rem;
-    font-size: 0.56rem;
+  .motion-copy {
+    padding: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .chat-panel {
