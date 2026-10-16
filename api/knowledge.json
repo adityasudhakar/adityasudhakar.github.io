@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-14T23:00:06.310Z",
-  "description": "Collated public-source knowledge used by the browser-local chatbot on adityasudhakar.com.",
+  "generated_at": "2026-10-16T22:25:57.465Z",
+  "description": "Collated first-party knowledge used by the chatbot on adityasudhakar.com.",
   "sources": {
     "website": "Pages published on https://adityasudhakar.com",
     "github": "Public repository metadata and README excerpts from https://github.com/adityasudhakar",
-    "linkedin": "Facts visible on the logged-out public LinkedIn profile; intentionally limited to publicly exposed fields."
+    "linkedin": "Career history provided by Aditya from his LinkedIn profile."
   },
   "documents": [
     {
@@ -18,7 +18,7 @@
         "aditya sudhakar",
         "personal site"
       ],
-      "content": "Aditya Sudhakar Aditya Sudhakar Updated I'm from Bangalore, India, and now live in Mountain View, California by way of Michigan, Charleston, Boston, and New York. I have a unique, yet confusing, distinction of having shipped diesel injectors for customers like Mercedes and Volvo and an open source Python package for customers like Nvidia, Apple and Tesla . I consider myself curious at heart, enjoy good conversations, and feel energized when I learn something new. Links GitHub start here projects TheSlyLlama Podcast series LinkedIn profile 12:00am in California adi@🌈.kz"
+      "content": "Aditya Sudhakar Aditya Sudhakar Updated Self-rising robot trained with reinforcement learning in MuJoCo. Custom AI-designed LEGO robot with build instructions and a complete parts list. Location-aware iOS audio tour for San Francisco’s 49-Mile Scenic Drive. I'm from Bangalore, India, and now live in Mountain View, California by way of Michigan, Charleston, Boston, and New York. I have a unique, yet confusing, distinction of having shipped diesel injectors for customers like Mercedes and Volvo and an open source Python package for customers like Nvidia, Apple and Tesla . I consider myself curious at heart, enjoy good conversations, and feel energized when I learn something new. Links GitHub start here projects TheSlyLlama Podcast series LinkedIn profile 12:00am in California adi@🌈.kz Ask this site Public sources Ask about Aditya × Search Aditya’s website, public GitHub repositories, and public LinkedIn profile information. Ask a question ↑ Uses OpenAI and searches Aditya’s public sources."
     },
     {
       "id": "website:github/index.html",
@@ -105,42 +105,207 @@
       "content": "Software Spend Management | The Sly Llama ← Back to The Sly Llama Software Spend Management With Gabriel I pretend to be a PM for apps like Talisman that help finance teams with software subscription budgeting. I talk to my friend Gabriel, currently CFO of Caju. Watch on YouTube . Notes As a PM my objective is to help build products that provide value to high-frequency use-cases so they can acquire newer users at lower cost and retain existing ones at higher value. Use-cases: how often and how severe is the use-case, and whether there is a higher-frequency adjacent use-case. Acquisition: what are barriers to try and switch. Retention: can value be delivered sooner to avoid churn risk. Takeaways. For Gabriel, software spend monitoring is a low-frequency, low-severity activity. A growth-stage company like Caju does not seem to need live spend monitoring the way a much smaller company might. At this stage, the driver is value more than pure cost. The “what happened next” conversation hack worked for getting detailed and reliable user feedback. Next steps with Gabriel and others. Show mockups that emphasize value metrics rather than only spend summaries. Talk to finance buyers across company stages to refine the ideal customer profile. Big thanks to Gabriel for his time and knowledge."
     },
     {
-      "id": "linkedin:public-profile",
+      "id": "linkedin:profile-overview",
       "source": "linkedin",
-      "title": "Aditya Sudhakar — public LinkedIn profile",
+      "title": "Aditya Sudhakar — LinkedIn career overview",
       "url": "https://www.linkedin.com/in/adityasudhakar/",
       "tags": [
         "linkedin",
         "background",
+        "career",
         "experience",
-        "education",
-        "Vanna AI",
-        "University of Michigan",
-        "languages"
+        "product management",
+        "founder",
+        "co-founder"
       ],
-      "content": "Aditya Sudhakar is based in Mountain View, California, United States. His public profile identifies Vanna AI and the University of Michigan. The public About section lists technologies spanning steel forging and machining, word2vec and gensim, WebRTC, and transformer models. Public article titles include Unnatural language processing, The nuts and bots, Aaand we're back, and Expert-ease. The public profile lists English at native or bilingual proficiency, and Hindi and Kannada at professional working proficiency. LinkedIn hides most individual job titles and dates from logged-out visitors, so this knowledge source intentionally does not infer them.",
+      "content": "Aditya Sudhakar is based in Mountain View, California, United States. He is Co-Founder of Vanna AI and previously worked at Aisera, huddl.ai, Signifyd, SenseiHub, Moody's Analytics, Accenture, and Bosch. His career spans entrepreneurship, product management, conversational analytics, enterprise AI and RAG, WebRTC meetings, fraud prevention, financial analytics, consulting, and automotive manufacturing. His public profile also identifies the University of Michigan. The public About section lists technologies spanning steel forging and machining, word2vec and gensim, WebRTC, and transformer models. Public article titles include Unnatural language processing, The nuts and bots, Aaand we're back, and Expert-ease. The profile lists English at native or bilingual proficiency, and Hindi and Kannada at professional working proficiency.",
       "metadata": {
-        "visibility": "public logged-out profile",
-        "checked_at": "2026-10-14"
+        "provenance": "Provided by Aditya from his LinkedIn profile",
+        "provided_at": "2026-10-16"
       }
     },
     {
-      "id": "github:self-rising-robot",
-      "source": "github",
-      "title": "self-rising-robot",
-      "url": "https://github.com/adityasudhakar/self-rising-robot",
+      "id": "linkedin:vanna-ai",
+      "source": "linkedin",
+      "title": "Co-Founder — Vanna AI",
+      "url": "https://www.linkedin.com/in/adityasudhakar/",
       "tags": [
-        "github",
-        "repository",
-        "Python"
+        "linkedin",
+        "Vanna AI",
+        "co-founder",
+        "founder",
+        "conversational analytics",
+        "open source",
+        "enterprise AI",
+        "on-prem"
       ],
-      "content": "Primary language: Python. This is an original repository on Aditya's account. Last pushed: 2026-10-14. Self Rising Robot Small experiments around a two-servo self-righting robot using an M5Atom Matrix, on-device control, and policies trained in simulation. Videos - V1: crooked bot straightens itself - V2: self standing bot - V3: self rising robot - V4: self rising bot",
+      "content": "Aditya has been a full-time Co-Founder of Vanna AI since June 2024 in Mountain View, California. His LinkedIn description calls Vanna a leading conversational analytics solution and reports 20,000 GitHub stars, 1,000 daily downloads, and hundreds of thousands of users. Vanna is designed to answer questions that normally require heavy analytical work, such as what a user experienced in an app or why a customer is requesting a discount. It can be deployed locally so data never leaves the customer's premises, and its open-source version costs nothing to use. Paid enterprise capabilities include access controls, governance, authentication, white-labeling, multi-user mode, service, and support. Customers can self-deploy through vanna.ai or arrange a fully featured, fully supported, fully on-premises paid pilot lasting from two weeks to three months.",
       "metadata": {
-        "fork": false,
-        "archived": false,
-        "language": "Python",
-        "stars": 0,
-        "updated_at": "2026-10-14T22:58:27Z"
+        "provenance": "Provided by Aditya from his LinkedIn profile",
+        "provided_at": "2026-10-16",
+        "start_date": "2024-06",
+        "end_date": null,
+        "displayed_duration": "2 yrs 5 mos",
+        "employment_type": "Full-time",
+        "location": "Mountain View, California, United States"
+      }
+    },
+    {
+      "id": "linkedin:aisera",
+      "source": "linkedin",
+      "title": "Product Manager — Aisera",
+      "url": "https://www.linkedin.com/in/adityasudhakar/",
+      "tags": [
+        "linkedin",
+        "Aisera",
+        "product manager",
+        "LLM",
+        "RAG",
+        "enterprise AI",
+        "Automation Anywhere"
+      ],
+      "content": "Aditya was a full-time Product Manager at Aisera from September 2022 through March 2024 in Palo Alto, California, working on-site. Aisera was acquired by Automation Anywhere and was backed by Goldman Sachs, Thoma Bravo, Norwest, and others. The company sold to CIOs at organizations including Amgen, Gap, RingCentral, and Workday. Aditya worked with a former Splunk team building an LLM- and RAG-based bot that answered questions and automated actions.",
+      "metadata": {
+        "provenance": "Provided by Aditya from his LinkedIn profile",
+        "provided_at": "2026-10-16",
+        "start_date": "2022-09",
+        "end_date": "2024-03",
+        "displayed_duration": "1 yr 7 mos",
+        "employment_type": "Full-time",
+        "location": "Palo Alto, California, United States"
+      }
+    },
+    {
+      "id": "linkedin:huddl-ai",
+      "source": "linkedin",
+      "title": "Product Manager — huddl.ai",
+      "url": "https://www.linkedin.com/in/adityasudhakar/",
+      "tags": [
+        "linkedin",
+        "huddl.ai",
+        "product manager",
+        "WebRTC",
+        "meetings",
+        "audio video"
+      ],
+      "content": "Aditya was a Product Manager at huddl.ai from June 2019 through June 2022 in the San Francisco Bay Area. The company was backed by Bain, Bloomberg, Propel, and others, and sold to CIOs at organizations including Cisco, Nutanix, Persistent, and Ooma. Aditya worked with a team whose background included Cisco and Imagination to build a WebRTC-based audio/video meetings application.",
+      "metadata": {
+        "provenance": "Provided by Aditya from his LinkedIn profile",
+        "provided_at": "2026-10-16",
+        "start_date": "2019-06",
+        "end_date": "2022-06",
+        "displayed_duration": "3 yrs 1 mo",
+        "location": "San Francisco Bay Area"
+      }
+    },
+    {
+      "id": "linkedin:signifyd",
+      "source": "linkedin",
+      "title": "Product Manager — Signifyd",
+      "url": "https://www.linkedin.com/in/adityasudhakar/",
+      "tags": [
+        "linkedin",
+        "Signifyd",
+        "product manager",
+        "fraud prevention",
+        "ecommerce",
+        "Shopify",
+        "BigCommerce",
+        "Magento"
+      ],
+      "content": "Aditya was a Product Manager at Signifyd from February 2018 through May 2019 in the San Francisco Bay Area. Signifyd was backed by Andreessen Horowitz, Menlo Ventures, and others, and sold to digital leaders at organizations including Philips, Wish, and Samsung. Aditya worked with a team whose background included PayPal and FedEx to build a credit-card-fraud-prevention product for Shopify, BigCommerce, Magento, and custom API-based stores.",
+      "metadata": {
+        "provenance": "Provided by Aditya from his LinkedIn profile",
+        "provided_at": "2026-10-16",
+        "start_date": "2018-02",
+        "end_date": "2019-05",
+        "displayed_duration": "1 yr 4 mos",
+        "location": "San Francisco Bay Area"
+      }
+    },
+    {
+      "id": "linkedin:senseihub",
+      "source": "linkedin",
+      "title": "Founder and CEO — SenseiHub",
+      "url": "https://www.linkedin.com/in/adityasudhakar/",
+      "tags": [
+        "linkedin",
+        "SenseiHub",
+        "founder",
+        "CEO",
+        "entrepreneurship"
+      ],
+      "content": "Aditya was Founder and CEO of SenseiHub from March 2015 through February 2018 in the San Francisco Bay Area.",
+      "metadata": {
+        "provenance": "Provided by Aditya from his LinkedIn profile",
+        "provided_at": "2026-10-16",
+        "start_date": "2015-03",
+        "end_date": "2018-02",
+        "displayed_duration": "3 yrs",
+        "location": "San Francisco Bay Area"
+      }
+    },
+    {
+      "id": "linkedin:moodys-analytics",
+      "source": "linkedin",
+      "title": "Product Manager — Moody's Analytics",
+      "url": "https://www.linkedin.com/in/adityasudhakar/",
+      "tags": [
+        "linkedin",
+        "Moody's Analytics",
+        "product manager",
+        "financial analytics"
+      ],
+      "content": "Aditya was a Product Manager at Moody's Analytics from 2012 through 2014 in the New York City metropolitan area.",
+      "metadata": {
+        "provenance": "Provided by Aditya from his LinkedIn profile",
+        "provided_at": "2026-10-16",
+        "start_date": "2012",
+        "end_date": "2014",
+        "location": "New York City Metropolitan Area"
+      }
+    },
+    {
+      "id": "linkedin:accenture",
+      "source": "linkedin",
+      "title": "Consultant — Accenture",
+      "url": "https://www.linkedin.com/in/adityasudhakar/",
+      "tags": [
+        "linkedin",
+        "Accenture",
+        "consultant",
+        "consulting"
+      ],
+      "content": "Aditya was a Consultant at Accenture from 2008 through 2009 in Greater Boston.",
+      "metadata": {
+        "provenance": "Provided by Aditya from his LinkedIn profile",
+        "provided_at": "2026-10-16",
+        "start_date": "2008",
+        "end_date": "2009",
+        "location": "Greater Boston"
+      }
+    },
+    {
+      "id": "linkedin:bosch",
+      "source": "linkedin",
+      "title": "Product Manager — Bosch",
+      "url": "https://www.linkedin.com/in/adityasudhakar/",
+      "tags": [
+        "linkedin",
+        "Bosch",
+        "product manager",
+        "automotive",
+        "manufacturing",
+        "diesel injectors"
+      ],
+      "content": "Aditya was a full-time Product Manager at Bosch from 2005 through 2008 in the Charleston, South Carolina metropolitan area.",
+      "metadata": {
+        "provenance": "Provided by Aditya from his LinkedIn profile",
+        "provided_at": "2026-10-16",
+        "start_date": "2005",
+        "end_date": "2008",
+        "employment_type": "Full-time",
+        "location": "Charleston, South Carolina Metropolitan Area"
       }
     },
     {
@@ -153,13 +318,32 @@
         "repository",
         "HTML"
       ],
-      "content": "Primary language: HTML. This is an original repository on Aditya's account. Last pushed: 2026-10-14. adityasudhakar1.github.io",
+      "content": "Primary language: HTML. This is an original repository on Aditya's account. Last pushed: 2026-10-16. adityasudhakar1.github.io",
       "metadata": {
         "fork": false,
         "archived": false,
         "language": "HTML",
         "stars": 0,
-        "updated_at": "2026-10-14T22:49:13Z"
+        "updated_at": "2026-10-16T13:59:08Z"
+      }
+    },
+    {
+      "id": "github:self-rising-robot",
+      "source": "github",
+      "title": "self-rising-robot",
+      "url": "https://github.com/adityasudhakar/self-rising-robot",
+      "tags": [
+        "github",
+        "repository",
+        "Python"
+      ],
+      "content": "Self rising bot trained via RL on Mujoco Primary language: Python. This is an original repository on Aditya's account. Last pushed: 2026-10-14. Self Rising Robot Small experiments around a two-servo self-righting robot using an M5Atom Matrix, on-device control, and policies trained in simulation. Videos - V1: crooked bot straightens itself - V2: self standing bot - V3: self rising robot - V4: self rising bot",
+      "metadata": {
+        "fork": false,
+        "archived": false,
+        "language": "Python",
+        "stars": 0,
+        "updated_at": "2026-10-16T06:18:18Z"
       }
     },
     {
