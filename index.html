@@ -19,6 +19,7 @@
       name="twitter:description"
       content="Aditya Sudhakar builds AI products, data systems, and small useful things."
     />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='white' stroke='%23111' stroke-width='2'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-size='22' font-family='Arial' fill='%23111'%3EAS%3C/text%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -444,6 +445,7 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="/assets/demo.css" />
   </head>
   <body>
     <main class="page">
@@ -452,6 +454,61 @@
           <h1>Aditya Sudhakar</h1>
           <time id="updated">Updated</time>
         </header>
+
+        <section class="motion-showcase" aria-label="Selected projects in motion">
+          <a
+            class="motion-item motion-item--robot"
+            href="https://github.com/adityasudhakar/self-rising-robot"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/assets/media/self-rising-robot-poster.jpg"
+              aria-label="V4 of a physical two-servo robot rising from the floor"
+            >
+              <source src="/assets/media/self-rising-robot.mp4" type="video/mp4" />
+            </video>
+            <span class="motion-copy">Self-rising robot trained with reinforcement learning in MuJoCo.</span>
+          </a>
+
+          <a
+            class="motion-item motion-item--lego"
+            href="https://github.com/adityasudhakar/ai-lego"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/assets/media/lego-bot-poster.jpg"
+              aria-label="A LEGO instruction book opening before a robot assembles itself"
+            >
+              <source src="/assets/media/lego-bot-book.mp4" type="video/mp4" />
+            </video>
+            <span class="motion-copy">Custom AI-designed LEGO robot with build instructions and a complete parts list.</span>
+          </a>
+
+          <a
+            class="motion-item motion-item--sf"
+            href="https://github.com/adityasudhakar/SF-49-Mile-Tour-App"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              src="/assets/media/sf-49-mile-tour.gif"
+              alt="The San Francisco 49-Mile GPS Audio Tour app running a three-stop demo"
+            />
+            <span class="motion-copy">Location-aware iOS audio tour for San Francisco’s 49-Mile Scenic Drive.</span>
+          </a>
+        </section>
 
         <p>
           I&apos;m from Bangalore, India, and now live in Mountain View,
@@ -522,6 +579,46 @@
       </div>
     </footer>
 
+    <button class="chat-launcher" type="button" data-open-chat aria-label="Ask this website a question">
+      Ask this site
+    </button>
+
+    <div class="chat-backdrop" data-close-chat hidden></div>
+    <aside
+      class="chat-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="chat-title"
+      aria-describedby="chat-description"
+      hidden
+    >
+      <header class="chat-header">
+        <div>
+          <p>Public sources</p>
+          <h2 id="chat-title">Ask about Aditya</h2>
+        </div>
+        <button type="button" class="chat-close" data-close-chat aria-label="Close chat">×</button>
+      </header>
+      <p class="visually-hidden" id="chat-description">
+        Search Aditya’s website, public GitHub repositories, and public LinkedIn profile information.
+      </p>
+      <div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>
+      <div class="chat-suggestions" id="chat-suggestions" aria-label="Suggested questions"></div>
+      <form class="chat-form" id="chat-form">
+        <label class="visually-hidden" for="chat-input">Ask a question</label>
+        <input
+          id="chat-input"
+          name="message"
+          type="text"
+          autocomplete="off"
+          placeholder="Ask about work, projects, or background"
+          maxlength="240"
+        />
+        <button type="submit" aria-label="Search sources">↑</button>
+      </form>
+      <p class="chat-privacy">Uses OpenAI and searches Aditya’s public sources.</p>
+    </aside>
+
     <script>
       const updated = document.getElementById("updated");
       const clock = document.getElementById("clock");
@@ -561,5 +658,6 @@
       setClock();
       setInterval(setClock, 15000);
     </script>
+    <script src="/assets/demo.js" defer></script>
   </body>
 </html>
