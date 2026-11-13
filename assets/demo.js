@@ -28,6 +28,8 @@
   ];
 
   let previousResponseId = null;
+  let chatId = null;
+  let turnNumber = 0;
   let initialized = false;
   let lastFocused = null;
   let busy = false;
@@ -69,8 +71,16 @@
     submit.disabled = value;
   }
 
-  async function answer(question) {
+  async function answer(question, turnId, number) {
+    const startedAt = performance.now();
     setBusy(true);
+    window.SiteAnalytics?.chatTurn({
+      turn_id: turnId,
+      chat_id: chatId,
+      turn_number: number,
+      user_message: question,
+      status: "pending"
+    });
     const pending = addMessage("assistant", "Searching Aditya’s public work…");
     pending.classList.add("chat-message--pending");
 
@@ -87,9 +97,29 @@
 
       if (!response.ok) throw new Error(payload.error || "The assistant is unavailable.");
       previousResponseId = payload.response_id || previousResponseId;
+      window.SiteAnalytics?.chatTurn({
+        turn_id: turnId,
+        chat_id: chatId,
+        turn_number: number,
+        user_message: question,
+        assistant_reply: payload.answer || "",
+        citations: Array.isArray(payload.citations) ? payload.citations : [],
+        openai_response_id: payload.response_id || null,
+        latency_ms: Math.round(performance.now() - startedAt),
+        status: "completed"
+      });
       pending.remove();
-      addMessage("assistant", payload.answer, payload.citations);
+      addMessage("assistant", payload.answer || "I couldn’t find a reliable answer.", payload.citations);
     } catch (error) {
+      window.SiteAnalytics?.chatTurn({
+        turn_id: turnId,
+        chat_id: chatId,
+        turn_number: number,
+        user_message: question,
+        latency_ms: Math.round(performance.now() - startedAt),
+        status: "failed",
+        error_code: error instanceof TypeError ? "network_error" : "chat_api_error"
+      });
       pending.remove();
       addMessage(
         "assistant",
@@ -106,9 +136,12 @@
   function submitQuestion(question) {
     const clean = question.trim();
     if (!clean || busy) return;
+    if (!chatId) chatId = crypto.randomUUID();
+    const turnId = crypto.randomUUID();
+    turnNumber += 1;
     addMessage("user", clean);
     input.value = "";
-    answer(clean);
+    answer(clean, turnId, turnNumber);
   }
 
   function renderSuggestions() {
@@ -124,6 +157,8 @@
 
   function openChat() {
     lastFocused = document.activeElement;
+    if (!chatId) chatId = crypto.randomUUID();
+    window.SiteAnalytics?.chatOpened(chatId);
     panel.hidden = false;
     backdrop.hidden = false;
     document.body.classList.add("chat-open");
