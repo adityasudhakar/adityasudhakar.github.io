@@ -10,7 +10,7 @@
     "check": "node --check server.mjs"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12"
   },
   "dependencies": {
     "@better-auth/cimd": "^1.7.23",
