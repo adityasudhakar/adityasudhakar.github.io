@@ -111,14 +111,14 @@ async function schemaContext(client) {
   return rows.map((r) => `${r.table_name}.${r.column_name} (${r.data_type})`).join("\n");
 }
 function validateAnalyticsSql(sql) {
-  if (!/^SELECT\b/i.test(sql) || sql.includes(";") || /--|\/\*|\*\//.test(sql)) return false;
-  if (/\b(INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|GRANT|REVOKE|COPY|CALL|DO|EXECUTE|TRUNCATE|UNION|INTERSECT|EXCEPT|INTO|LOCK)\b/i.test(sql)) return false;
   const source = sql.replace(/'(?:''|[^'])*'/g, "''");
+  if (!/^SELECT\b/i.test(source) || source.includes(";") || /--|\/\*|\*\//.test(source)) return false;
+  if (/\b(INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|GRANT|REVOKE|COPY|CALL|DO|EXECUTE|TRUNCATE|UNION|INTERSECT|EXCEPT|INTO|LOCK)\b/i.test(source)) return false;
   const allowedTables = new Set(["site_events", "chats", "chat_turns"]);
   for (const match of source.matchAll(/\b(?:FROM|JOIN)\s+([a-z_][a-z_0-9]*)/gi)) {
     if (!allowedTables.has(match[1].toLowerCase())) return false;
   }
-  const allowedFunctions = new Set(["count", "sum", "avg", "min", "max", "date_trunc", "date_part", "extract", "coalesce", "nullif", "round", "lower", "upper", "trim", "length", "to_char", "greatest", "least", "abs", "floor", "ceil", "ceiling", "cast"]);
+  const allowedFunctions = new Set(["count", "sum", "avg", "min", "max", "bool_and", "bool_or", "array_agg", "string_agg", "now", "statement_timestamp", "transaction_timestamp", "clock_timestamp", "date_trunc", "date_part", "extract", "coalesce", "nullif", "round", "lower", "upper", "btrim", "trim", "length", "to_char", "greatest", "least", "abs", "floor", "ceil", "ceiling", "cast", "date", "time", "timezone"]);
   const syntaxWords = new Set(["in", "exists", "over", "filter"]);
   for (const match of source.matchAll(/\b([a-z_][a-z_0-9]*)\s*\(/gi)) {
     const name = match[1].toLowerCase();
@@ -144,7 +144,7 @@ async function askAnalytics(question) {
     });
     const data = await generated.json();
     if (!generated.ok) throw new Error("Could not translate the analytics question");
-    const sql = (data.output || []).flatMap((x) => x.content || []).find((x) => x.type === "output_text")?.text?.trim().replace(/^```(?:sql)?\s*/i, "").replace(/```$/, "").trim();
+    const sql = (data.output || []).flatMap((x) => x.content || []).find((x) => x.type === "output_text")?.text?.trim().replace(/^```(?:sql)?\s*/i, "").replace(/```$/, "").trim().replace(/;\s*$/, "").trim();
     if (!sql || !validateAnalyticsSql(sql)) throw new Error("Generated query did not pass the read-only query checks");
     await client.query("BEGIN READ ONLY");
     await client.query("SET LOCAL statement_timeout = '4000ms'");
