@@ -4,14 +4,13 @@ import { Pool } from "pg";
 import { McpServer, createMcpHandler } from "@modelcontextprotocol/server";
 import { requireMcpAuth } from "@better-auth/mcp";
 import { z } from "zod";
-import { auth, mcpResource } from "./auth.mjs";
+import { auth, authDb, mcpResource } from "./auth.mjs";
 
 const PORT = Number(process.env.PORT || 8788);
 const DATABASE_URL = process.env.DATABASE_URL;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const MODEL = process.env.OPENAI_MODEL || "gpt-5.5";
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL;
-const GOOGLE_CONFIGURED = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
 const pool = DATABASE_URL ? new Pool({ connectionString: DATABASE_URL, ssl: process.env.PGSSLMODE === "disable" ? false : { rejectUnauthorized: false }, max: 5 }) : null;
 const allowedOrigins = new Set(["https://adityasudhakar.com", "https://www.adityasudhakar.com", "http://localhost:8000", "http://127.0.0.1:8000"]);
 const eventTypes = new Set(["page_view", "link_click", "text_chip_click", "element_click", "chat_opened"]);
@@ -216,13 +215,24 @@ async function writeWebResponse(webResponse, res) {
 function authPage(kind) {
   const title = kind === "sign-in" ? "Sign in to Aditya’s analytics" : "Connect site analytics";
   const content = kind === "sign-in"
-    ? `<p>Sign in with the Google account authorized for this private analytics tool.</p><button id="google" ${GOOGLE_CONFIGURED ? "" : "disabled"}>Continue with Google</button>`
+    ? `<p>Sign in with the owner account to connect your private analytics tool.</p><form id="login"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="username" required><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required><button id="sign-in">Sign in</button></form>`
     : `<p>Allow ChatGPT to read site analytics through the read-only analytics tool?</p><button id="allow">Allow read-only access</button><button class="secondary" id="deny">Cancel</button>`;
   const buttonCode = kind === "sign-in"
-    ? `document.getElementById("google").onclick = async () => { try { const result = await window.siteAuthClient.signIn.social({ provider: "google", callbackURL: window.location.href }); if (result.error) throw new Error(result.error.message); if (result.data?.url) location.assign(result.data.url); } catch (error) { showError(error); } };`
+    ? `document.getElementById("login").onsubmit = async (event) => { event.preventDefault(); const form = new FormData(event.currentTarget); const button = document.getElementById("sign-in"); button.disabled = true; try { const result = await window.siteAuthClient.signIn.email({ email: form.get("email"), password: form.get("password"), callbackURL: window.location.href }); if (result.error) throw new Error(result.error.message); if (result.data?.url) location.assign(result.data.url); else location.reload(); } catch (error) { showError(error); button.disabled = false; } };`
     : `async function decide(accept) { try { const result = await window.siteAuthClient.oauth2.consent({ accept }); if (result.error) throw new Error(result.error.message); if (result.data?.url) location.assign(result.data.url); } catch (error) { showError(error); } } document.getElementById("allow").onclick = () => decide(true); document.getElementById("deny").onclick = () => decide(false);`;
-  const warning = GOOGLE_CONFIGURED ? "" : "<p class=\"error\">Google sign-in is not configured yet. The site owner needs to add Google OAuth credentials in Railway.</p>";
-  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title><style>body{margin:0;background:#f6f5f1;color:#20201e;font:16px/1.5 system-ui,sans-serif;display:grid;min-height:100vh;place-items:center}.card{width:min(440px,calc(100vw - 40px));box-sizing:border-box;background:white;padding:32px;border:1px solid #deddd7;border-radius:14px}h1{font-size:24px;margin:0 0 12px}p{color:#555}button{border:0;border-radius:8px;padding:12px 16px;background:#242421;color:white;font:inherit;cursor:pointer}.secondary{background:#eae9e4;color:#242421;margin-left:8px}.error{color:#9c332a}#error{color:#9c332a;white-space:pre-wrap}</style><main class="card"><h1>${title}</h1>${content}${warning}<p id="error"></p><script src="/auth-client.bundle.js"></script><script>function showError(error){document.getElementById("error").textContent=error.message||"Could not continue."}${buttonCode}</script></main></html>`;
+  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title><style>body{margin:0;background:#f6f5f1;color:#20201e;font:16px/1.5 system-ui,sans-serif;display:grid;min-height:100vh;place-items:center}.card{width:min(440px,calc(100vw - 40px));box-sizing:border-box;background:white;padding:32px;border:1px solid #deddd7;border-radius:14px}h1{font-size:24px;margin:0 0 12px}p{color:#555}label{display:block;margin:16px 0 4px}input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #bbb;border-radius:7px;font:inherit}button{margin-top:18px;border:0;border-radius:8px;padding:12px 16px;background:#242421;color:white;font:inherit;cursor:pointer}.secondary{background:#eae9e4;color:#242421;margin-left:8px}.error{color:#9c332a}#error{color:#9c332a;white-space:pre-wrap}</style><main class="card"><h1>${title}</h1>${content}<p id="error"></p><script src="/auth-client.bundle.js"></script><script>function showError(error){document.getElementById("error").textContent=error.message||"Could not continue."}${buttonCode}</script></main></html>`;
+}
+
+async function bootstrapOwnerAccount() {
+  const ownerEmail = (process.env.MCP_OWNER_EMAIL || "").trim().toLowerCase();
+  const ownerPassword = process.env.MCP_OWNER_PASSWORD;
+  if (!ownerEmail || !ownerPassword) return;
+  const { rows } = await authDb.query('SELECT id FROM auth."user" WHERE lower(email) = $1 LIMIT 1', [ownerEmail]);
+  if (rows.length) return;
+  await auth.api.signUpEmail({
+    body: { name: "Aditya Sudhakar", email: ownerEmail, password: ownerPassword }
+  });
+  console.log("Owner login created");
 }
 
 const server = createServer(async (req, res) => {
@@ -283,13 +293,25 @@ const server = createServer(async (req, res) => {
     catch (error) { console.error("OAuth discovery failed", error.message); return send(res, 500, { error: "OAuth discovery failed" }); }
   }
   if (url.pathname === "/api/auth" || url.pathname.startsWith("/api/auth/")) {
+    if (req.method === "POST" && url.pathname === "/api/auth/sign-up/email") {
+      return send(res, 404, { error: "Not found" });
+    }
     try { return await writeWebResponse(await auth.handler(await asWebRequest(req)), res); }
     catch (error) { console.error("OAuth handler failed", error.message); return send(res, 500, { error: "OAuth request failed" }); }
   }
   return send(res, 404, { error: "Not found" });
 });
 
-server.listen(PORT, "0.0.0.0", async () => {
-  console.log(`Analytics API listening on ${PORT}`);
-  if (pool) { try { await initDb(); console.log("Analytics schema ready"); } catch (error) { console.error("Database initialization failed", error.message); } }
+async function start() {
+  if (pool) {
+    await initDb();
+    await bootstrapOwnerAccount();
+  }
+  server.listen(PORT, "0.0.0.0", () => console.log(`Analytics API listening on ${PORT}`));
+}
+
+start().catch((error) => {
+  console.error("Analytics API startup failed", error.message);
+  process.exitCode = 1;
+  server.close();
 });

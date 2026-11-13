@@ -16,15 +16,11 @@ Run this service from the `analytics-api/` root. Configure `DATABASE_URL` as a R
 
 Set `PUBLIC_BASE_URL` to the generated HTTPS domain. The browser API URL is set in `assets/analytics-config.js` after the domain is assigned.
 
-`POST /v1/events` and `POST /v1/turns` accept events from the website origin. `/mcp` contains the schema-aware read-only `ask_site_analytics` tool and is protected by OAuth authorization code with PKCE, Google owner sign-in, and refresh tokens. Only the configured owner email can create an account. The first ChatGPT connection displays a consent screen; its renewable token keeps the connection active afterward.
+`POST /v1/events` and `POST /v1/turns` accept events from the website origin. `/mcp` contains the schema-aware read-only `ask_site_analytics` tool and is protected by OAuth authorization code with PKCE, owner-only email/password sign-in, and refresh tokens. The first ChatGPT connection displays a consent screen; its renewable token keeps the connection active afterward.
 
-Configure `BETTER_AUTH_SECRET`, `MCP_OWNER_EMAIL`, `GOOGLE_CLIENT_ID`, and `GOOGLE_CLIENT_SECRET` in Railway. Register this Google callback URL in Google Cloud OAuth settings:
+Configure `BETTER_AUTH_SECRET` and `MCP_OWNER_EMAIL` in Railway. To create the first password, temporarily set `MCP_OWNER_PASSWORD` to the password you choose, then deploy. The service hashes and stores it as the owner login before listening for requests. After the first deploy succeeds, remove `MCP_OWNER_PASSWORD` from Railway and redeploy; sign-up is disabled when the variable is absent. Do not send the password in chat.
 
-```text
-https://analytics-api-production-e921f877.up.railway.app/api/auth/callback/google
-```
-
-The Better Auth CLI applies the auth schema before the service starts. The Google sign-in and consent pages are `/sign-in` and `/consent`.
+The Better Auth CLI applies the auth schema before the service starts. The sign-in and consent pages are `/sign-in` and `/consent`.
 
 ## Query safety
 

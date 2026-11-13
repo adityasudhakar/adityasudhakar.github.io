@@ -24,17 +24,7 @@ export const auth = betterAuth({
   trustedOrigins: [baseUrl],
   database: authPool,
   disabledPaths: ["/token"],
-  emailAndPassword: { enabled: false },
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-      scope: ["openid", "email", "profile"]
-    }
-  },
-  account: {
-    accountLinking: { enabled: true, trustedProviders: ["google"] }
-  },
+  emailAndPassword: { enabled: true, disableSignUp: !process.env.MCP_OWNER_PASSWORD },
   databaseHooks: {
     user: {
       create: {
@@ -63,3 +53,4 @@ export const auth = betterAuth({
 });
 
 export const mcpResource = resource;
+export const authDb = authPool;
