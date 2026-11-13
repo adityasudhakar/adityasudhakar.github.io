@@ -1,3 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS auth;
+
 CREATE TABLE IF NOT EXISTS site_events (
   event_id UUID PRIMARY KEY,
   session_id UUID NOT NULL,

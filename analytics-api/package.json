@@ -4,12 +4,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.mjs",
+    "start": "npm run build && npm run migrate:auth && node server.mjs",
+    "build": "esbuild auth-client.js --bundle --minify --format=iife --outfile=auth-client.bundle.js",
+    "migrate:auth": "node migrate-auth.mjs",
     "check": "node --check server.mjs"
   },
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@better-auth/cimd": "^1.7.23",
+    "@better-auth/mcp": "^1.7.23",
+    "auth": "^1.7.23",
+    "esbuild": "^0.28.2",
+    "@modelcontextprotocol/server": "^2.4.0",
+    "better-auth": "^1.7.23",
     "pg": "^8.23.1",
     "zod": "^4.1.12"
   }
