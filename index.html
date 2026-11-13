@@ -535,16 +535,16 @@
           and running experiments that accelerate sales.
         </p>
 
-        <p>
-          <button class="inline-expand" type="button" data-target="bosch-detail">For example, at my first job after Michigan, on the factory floor at Bosch…</button><span class="inline-reveal" id="bosch-detail"> We made 3,000 steel diesel injectors a day on Mikron, Nakamura, Okuma, and Makino mills and lathes, with bore tolerances of ±25 microns and steel hardened to handle 2,500 bar. I met with Mercedes, Volvo, Scania, and Iveco for quarterly reviews and shared how we tested automation to improve speed, cost, and quality.</span>
+        <p data-career-example>
+          <button class="inline-expand" type="button" data-target="bosch-detail" aria-controls="bosch-detail" aria-expanded="false">For example, at my first job after Michigan, on the factory floor at Bosch…</button><span class="inline-reveal" id="bosch-detail"> We made 3,000 steel diesel injectors a day on Mikron, Nakamura, Okuma, and Makino mills and lathes, with bore tolerances of ±25 microns and steel hardened to handle 2,500 bar. I met with Mercedes, Volvo, Scania, and Iveco for quarterly reviews and shared how we tested automation to improve speed, cost, and quality.</span>
         </p>
 
-        <p>
-          <button class="inline-expand" type="button" data-target="moodys-detail">Or at Moody’s Analytics, where we sold to Goldman Sachs…</button><span class="inline-reveal" id="moodys-detail"> We also sold our bond and covenant database to Morgan Stanley, JPMorgan, Fidelity, and State Street. I sat with traders to see how they used it alongside Bloomberg terminals.</span>
+        <p data-career-example hidden>
+          <button class="inline-expand" type="button" data-target="moodys-detail" aria-controls="moodys-detail" aria-expanded="false">Or at Moody’s Analytics, where we sold to Goldman Sachs…</button><span class="inline-reveal" id="moodys-detail"> We also sold our bond and covenant database to Morgan Stanley, JPMorgan, Fidelity, and State Street. I sat with traders to see how they used it alongside Bloomberg terminals.</span>
         </p>
 
-        <p>
-          <button class="inline-expand" type="button" data-target="senseihub-detail">Or at SenseiHub, my first venture…</button><span class="inline-reveal" id="senseihub-detail"> where Crocs was my first customer. I built a database of university labs using patents, papers, and funding data, with word2vec search to help Crocs find U.S. labs working on rubber and plastics. In 2015, when two groups connected through SenseiHub, we automatically created a private Slack channel so they could collaborate.</span>
+        <p data-career-example hidden>
+          <button class="inline-expand" type="button" data-target="senseihub-detail" aria-controls="senseihub-detail" aria-expanded="false">Or at SenseiHub, my first venture…</button><span class="inline-reveal" id="senseihub-detail"> where Crocs was my first customer. I built a database of university labs using patents, papers, and funding data, with word2vec search to help Crocs find U.S. labs working on rubber and plastics. In 2015, when two groups connected through SenseiHub, we automatically created a private Slack channel so they could collaborate.</span>
         </p>
       </article>
 
@@ -647,6 +647,7 @@
       const updated = document.getElementById("updated");
       const clock = document.getElementById("clock");
       const triggers = document.querySelectorAll(".inline-expand");
+      const careerExamples = Array.from(document.querySelectorAll("[data-career-example]"));
 
       function setUpdatedDate() {
         const formatter = new Intl.DateTimeFormat("en-US", {
@@ -675,6 +676,19 @@
           const willOpen = !target.classList.contains("is-visible");
           target.classList.toggle("is-visible");
           trigger.dataset.open = String(willOpen);
+          trigger.setAttribute("aria-expanded", String(willOpen));
+
+          let showExample = true;
+          careerExamples.forEach((example) => {
+            const button = example.querySelector(".inline-expand");
+            example.hidden = !showExample;
+            if (example.hidden) {
+              document.getElementById(button.dataset.target).classList.remove("is-visible");
+              button.dataset.open = "false";
+              button.setAttribute("aria-expanded", "false");
+            }
+            showExample = showExample && button.dataset.open === "true";
+          });
         });
       });
 
