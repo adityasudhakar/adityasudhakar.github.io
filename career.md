@@ -8,9 +8,7 @@ Last updated: November 14, 2026
 
 Aditya Sudhakar is an engineer and product builder working across AI products, data systems, robotics, CAD, and useful experiments. He is from Bangalore, India and lives in Mountain View, California.
 
-He's a founder and product leader with hands-on GTM experience across marketing, sales, and customer success—from finding growth opportunities to testing approaches and building playbooks. Owned customer relationships and outcomes. Worked directly with customers from initial conversations through onboarding and ongoing adoption. Understanding their goals, helping them get value from the product, and bringing their feedback into product and GTM decisions.
-
-His career spans product management, founding companies, consulting, automotive manufacturing, conversational analytics, enterprise AI and RAG, WebRTC meetings, fraud prevention, and financial analytics. He has shipped diesel injectors for customers including Mercedes and Volvo, and an open-source Python package used by teams at Nvidia, Apple, and Tesla.
+He's a founder and product leader with GTM experience across product, marketing, sales, and customer success—from finding growth opportunities to testing approaches and building playbooks. He has owned customer relationships and outcomes, working directly with customers from initial conversations through onboarding and ongoing adoption. He works to understand their goals, help them get value from the product, and bring their feedback into product and GTM decisions.
 
 ### Interests
 
