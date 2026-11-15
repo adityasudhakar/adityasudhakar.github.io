@@ -51,7 +51,14 @@ Questions such as “What was Bob's experience in the app?” and “Why is cust
 - Location: Palo Alto, California, United States
 - Work arrangement: On-site
 
-At Aisera, Aditya ran enterprise customer outcomes as a repeatable team process. At the $40M ARR enterprise AI company, which served customers including Adobe, RingCentral, Amgen, and Snowflake, he led a cross-functional team of product managers, account managers, and customer success managers. He worked directly with CIO organizations through daily customer calls and QBRs to support customer outcomes and identify upsell opportunities. He trained teams to communicate customer success consistently, standardized QBR templates, and implemented Giant TV—a global view of standardized customer health metrics that aligned internal teams on account status. He also worked with an ex-Splunk team building an LLM/RAG-based bot that answered questions and automated actions. Aisera was acquired by Automation Anywhere and backed by Goldman Sachs, Thoma Bravo, Norwest, and others.
+At Aisera, Aditya ran enterprise customer outcomes as a repeatable team process. At the $40M ARR enterprise AI company, which served customers including Adobe, RingCentral, Amgen, and Snowflake, he led a cross-functional team of product managers, account managers, and customer success managers. He worked directly with CIO organizations through daily customer calls and QBRs to improve customer outcomes and identify upsell opportunities.
+
+- Standardized QBR templates and trained teams to communicate customer success. Implemented Giant TV, a global view of standardized customer health metrics that kept internal teams aligned on account status.
+- Connected customer conversations to product and sales: PMs turned one-off workflow and integration requests into product features, call learnings were captured in battle cards used by AM teams, and CSMs learned to lead product-success calls.
+- Set OKRs for all teams that fed into company-level objectives. PMs tracked bug-resolution work in Jira against a goal of reducing mean time to resolution from weeks to days.
+- Worked with an ex-Splunk team building an LLM/RAG-based bot that answered questions and automated actions.
+
+Aisera was acquired by Automation Anywhere and backed by Goldman Sachs, Thoma Bravo, Norwest, and others.
 
 ### Product Manager — huddl.ai
 
