@@ -32,6 +32,8 @@ AI products; data systems; robotics; CAD and digital fabrication; developer tool
 
 Vanna is currently the leading conversational analytics solution. It has 20,000 GitHub stars, 1,000 daily downloads, and hundreds of thousands of users.
 
+Vanna's product-led growth—powered by easy onboarding and recommendations from LLMs—generated hundreds of inbound inquiries a day. Aditya built systems to turn that interest into customer progress: enriching inbound leads to identify high-value prospects; creating an automated onboarding email program that adapted to users' progress and guided them toward a successful first use of the product; and developing a Google Cloud partnership that brought Vanna into conversations with billion-dollar companies in GCP's pipeline.
+
 Questions such as “What was Bob's experience in the app?” and “Why is customer XYZ looking for a discount?” require heavy lifting to answer without Vanna.
 
 - Deploy locally so data never leaves your premises.
