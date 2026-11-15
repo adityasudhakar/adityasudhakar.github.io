@@ -51,7 +51,7 @@ Questions such as “What was Bob's experience in the app?” and “Why is cust
 - Location: Palo Alto, California, United States
 - Work arrangement: On-site
 
-Aisera was acquired by Automation Anywhere and backed by Goldman Sachs, Thoma Bravo, Norwest, and others. It sold to CIOs at Amgen, Gap, RingCentral, Workday, and other companies. Aditya worked with an ex-Splunk team building an LLM/RAG-based bot that answered questions and automated actions.
+At Aisera, Aditya ran enterprise customer outcomes as a repeatable team process. At the $40M ARR enterprise AI company, which served customers including Adobe, RingCentral, Amgen, and Snowflake, he led a cross-functional team of product managers, account managers, and customer success managers. He worked directly with CIO organizations through daily customer calls and QBRs to support customer outcomes and identify upsell opportunities. He trained teams to communicate customer success consistently, standardized QBR templates, and implemented Giant TV—a global view of standardized customer health metrics that aligned internal teams on account status. He also worked with an ex-Splunk team building an LLM/RAG-based bot that answered questions and automated actions. Aisera was acquired by Automation Anywhere and backed by Goldman Sachs, Thoma Bravo, Norwest, and others.
 
 ### Product Manager — huddl.ai
 
