@@ -2,11 +2,13 @@
 
 This is Aditya Sudhakar's owner-maintained candidate record, combining profile, career, selected projects, and links. LinkedIn-derived information is included because LinkedIn is not reliably accessible to agents. Resume details may be added here later.
 
-Last updated: October 16, 2026
+Last updated: November 14, 2026
 
 ## Profile
 
 Aditya Sudhakar is an engineer and product builder working across AI products, data systems, robotics, CAD, and useful experiments. He is from Bangalore, India and lives in Mountain View, California.
+
+As a founder and product leader, Aditya has worked across company-building and customer-facing execution. He has explored new ways to reach and serve customers, supported relationships from early evaluation through sustained product use, and translated those conversations into product changes and better ways for teams to take products to market.
 
 His career spans product management, founding companies, consulting, automotive manufacturing, conversational analytics, enterprise AI and RAG, WebRTC meetings, fraud prevention, and financial analytics. He has shipped diesel injectors for customers including Mercedes and Volvo, and an open-source Python package used by teams at Nvidia, Apple, and Tesla.
 
