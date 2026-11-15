@@ -66,7 +66,7 @@ Aisera was acquired by Automation Anywhere and backed by Goldman Sachs, Thoma Br
 - Duration: 3 years, 1 month
 - Location: San Francisco Bay Area
 
-huddl.ai was backed by Bain, Bloomberg, Propel, and others. It sold to CIOs at Cisco, Nutanix, Persistent, Ooma, and other companies. Aditya worked with an ex-Cisco and Imagination team building a WebRTC-based audio/video meetings app.
+At huddl.ai, Aditya shaped product strategy for a WebRTC-based meetings app, bringing customer feedback from companies including Nutanix, Ooma, Synaptics, and Marvell into the product roadmap. He kept the team focused on the core customer problems and the features that mattered most, monitored dozens of UCaaS companies—from Zoom, Teams, and Google Duo to Hopin and Dialpad—and presented quarterly board updates on product, deployments, team, and fundraising. He instrumented Amplitude to track in-app retention and growth, then used those insights to run targeted user-intervention playbooks. huddl.ai was backed by Bain, Bloomberg, Propel, and others and sold to CIOs at Cisco, Nutanix, Persistent, Ooma, and other companies. Aditya worked with an ex-Cisco and Imagination team.
 
 ### Product Manager — Signifyd
 
