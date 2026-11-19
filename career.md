@@ -12,7 +12,7 @@ He's a founder and product leader with GTM experience across product, marketing,
 
 ### Interests
 
-AI products; data systems; robotics; CAD and digital fabrication; developer tools; location-aware software; open source.
+AI products; data systems; robotics; CAD and digital fabrication; developer tools; location-aware software; open source; longevity and healthspan, including ways to stay healthy and active over time.
 
 ### Education, languages, and public writing
 
