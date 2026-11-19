@@ -2,7 +2,7 @@
 
 This is Aditya Sudhakar's owner-maintained candidate record, combining profile, career, selected projects, and links. LinkedIn-derived information is included because LinkedIn is not reliably accessible to agents. Resume details may be added here later.
 
-Last updated: November 14, 2026
+Last updated: November 19, 2026
 
 ## Profile
 
@@ -33,6 +33,8 @@ AI products; data systems; robotics; CAD and digital fabrication; developer tool
 Vanna is currently the leading conversational analytics solution. It has 20,000 GitHub stars, 1,000 daily downloads, and hundreds of thousands of users.
 
 Vanna's product-led growth—powered by easy onboarding and recommendations from LLMs—generated hundreds of inbound inquiries a day. Aditya built systems to turn that interest into customer progress: enriching inbound leads to identify high-value prospects; creating an automated onboarding email program that adapted to users' progress and guided them toward a successful first use of the product; and developing a Google Cloud partnership. His meetings included prospects from Vanna's own pipeline, which included accounts from 50% of the Fortune 100, as well as billion-dollar companies in GCP's pipeline.
+
+Working across borders also showed him how payment and procurement friction can slow a deal. When Vanna needed to get paid by Ford Mexico, local-vendor requirements and tax complexity made the process difficult. Later, setting Vanna up in Google Cloud Marketplace helped simplify the buying and payment path. He saw how the right commercial infrastructure can make it easier for both a company to sell and a customer to buy.
 
 Questions such as “What was Bob's experience in the app?” and “Why is customer XYZ looking for a discount?” require heavy lifting to answer without Vanna.
 
